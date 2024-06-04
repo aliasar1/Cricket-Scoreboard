@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/ball_container.dart';
 import '../widgets/curved_bottom_container.dart';
-import '../widgets/custom_text.dart';
+import '../widgets/custom/custom_text.dart';
 import '../widgets/gradient_round_container.dart';
 
 class HomePage extends StatelessWidget {

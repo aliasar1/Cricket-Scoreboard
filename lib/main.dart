@@ -1,4 +1,5 @@
-import 'package:aagpl_scoreboard/views/home_page.dart';
+import 'package:aagpl_scoreboard/constants/strings.dart';
+import 'package:aagpl_scoreboard/views/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,14 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return const MaterialApp(
+      title: StringsManager.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
+      home: DashboardScreen(),
     );
   }
 }
