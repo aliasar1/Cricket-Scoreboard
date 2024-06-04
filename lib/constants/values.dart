@@ -5,6 +5,7 @@ class MarginManager {
   static const double marginSemiM = 16.0;
   static const double marginL = 18.0;
   static const double marginXL = 20.0;
+  static const double marginWeb = 300.0;
 }
 
 class PaddingManager {

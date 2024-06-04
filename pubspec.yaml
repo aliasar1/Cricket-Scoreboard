@@ -39,6 +39,7 @@ dependencies:
   get_it: ^7.6.7
   fluttertoast: ^8.2.0
   flutter_spinkit: ^5.2.1
+  universal_html: ^2.2.4
 
 dev_dependencies:
   flutter_test:

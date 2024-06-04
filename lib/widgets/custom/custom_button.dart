@@ -49,7 +49,7 @@ class CustomButton extends StatelessWidget {
           color: textColor,
           fontWeight: FontWeight.w600,
           letterSpacing: 1.5,
-          fontSize: FontSize.textFontSize,
+          fontSize: FontSize.textFontSize * 1.3,
           fontFamily: "Poppins",
         );
     switch (buttonType) {

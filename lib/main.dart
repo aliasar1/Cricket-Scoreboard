@@ -1,6 +1,9 @@
 import 'package:aagpl_scoreboard/constants/strings.dart';
+import 'package:aagpl_scoreboard/views/admin_login_screen.dart';
 import 'package:aagpl_scoreboard/views/dashboard_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'views/scoreboard_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: StringsManager.appName,
       debugShowCheckedModeBanner: false,
-      home: DashboardScreen(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const DashboardScreen(),
+        "/admin-login": (context) => AdminLoginScreen(),
+        "/scoreboard": (context) => const ScoreboardScreen(),
+      },
     );
   }
 }

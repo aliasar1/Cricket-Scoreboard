@@ -5,8 +5,8 @@ import '../widgets/curved_bottom_container.dart';
 import '../widgets/custom/custom_text.dart';
 import '../widgets/gradient_round_container.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ScoreboardScreen extends StatelessWidget {
+  const ScoreboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
