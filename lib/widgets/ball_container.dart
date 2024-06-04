@@ -20,7 +20,7 @@ class BallContainer extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(
           color: Colors.black,
-          width: 4.0,
+          width: 2.0,
         ),
       ),
       child: Center(

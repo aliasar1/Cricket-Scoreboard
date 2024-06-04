@@ -1,7 +1,8 @@
 import 'package:aagpl_scoreboard/constants/strings.dart';
+import 'package:aagpl_scoreboard/views/admin_dashboard.dart';
 import 'package:aagpl_scoreboard/views/admin_login_screen.dart';
-import 'package:aagpl_scoreboard/views/dashboard_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'views/scoreboard_screen.dart';
 
@@ -14,14 +15,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: StringsManager.appName,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "/admin-dashboard",
       routes: {
-        "/": (context) => const DashboardScreen(),
-        "/admin-login": (context) => AdminLoginScreen(),
+        "/": (context) => AdminLoginScreen(),
         "/scoreboard": (context) => const ScoreboardScreen(),
+        "/admin-dashboard": (context) => AdminDashboard(),
       },
     );
   }

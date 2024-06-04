@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: hasInfiniteWidth ? double.infinity : 0,
+        minWidth: hasInfiniteWidth ? double.infinity : 220,
       ),
       child: getButtonWidget(context),
     );
