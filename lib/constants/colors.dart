@@ -11,4 +11,5 @@ class ColorsManager {
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Color(0xFFfefeff);
   static const Color lightGreyColor = Color.fromARGB(255, 117, 117, 119);
+  static const Color redColor = Colors.redAccent;
 }

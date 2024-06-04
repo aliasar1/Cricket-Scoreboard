@@ -14,8 +14,9 @@ import '../widgets/custom/custom_text_form_field.dart';
 
 class AdminDashboard extends StatelessWidget {
   AdminDashboard({super.key});
+  static const String routeName = '/admin-dashboard';
 
-  final scoreController = Get.put(ScoreController());
+  final scoreController = Get.find<ScoreController>();
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +289,9 @@ class AdminDashboard extends StatelessWidget {
                           CustomButton(
                             color: ColorsManager.secondaryColor,
                             hasInfiniteWidth: false,
-                            onPressed: () {},
+                            onPressed: () {
+                              scoreController.setupBoard();
+                            },
                             text: "Setup Board",
                             textColor: ColorsManager.whiteColor,
                           ),
@@ -375,6 +378,8 @@ class AdminDashboard extends StatelessWidget {
                     color: ColorsManager.secondaryColor,
                     hasInfiniteWidth: true,
                     onPressed: () {
+                      // final sboard = scoreController.scoreboard.value.toJson();
+                      // final url = '/#/scoreboard?scoreboard=$sboard';
                       html.window.open('/#/scoreboard', "_blank");
                     },
                     text: "Show Scoreboard",
@@ -384,10 +389,11 @@ class AdminDashboard extends StatelessWidget {
                     height: 10,
                   ),
                   CustomButton(
-                    buttonType: ButtonType.text,
                     color: ColorsManager.secondaryColor,
-                    hasInfiniteWidth: true,
-                    onPressed: () {},
+                    hasInfiniteWidth: false,
+                    onPressed: () {
+                      scoreController.clearBoard();
+                    },
                     text: "Clear Scoreboard",
                     textColor: ColorsManager.whiteColor,
                   ),
