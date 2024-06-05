@@ -1,11 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../local/local_storage.dart';
 import '../models/batsman.dart';
 import '../models/bowler.dart';
 import '../models/scoreboard.dart';
 
-class ScoreController extends GetxController {
+class ScoreController extends GetxController with LocalStorage {
   final TextEditingController batsman1Controller = TextEditingController();
   final TextEditingController batsman2Controller = TextEditingController();
   final TextEditingController bowlerController = TextEditingController();
@@ -16,6 +17,10 @@ class ScoreController extends GetxController {
   final TextEditingController totalCurrentWicketsController =
       TextEditingController();
   final TextEditingController currentRunsController = TextEditingController();
+
+  RxInt initOver = 0.obs;
+  RxInt initScore = 0.obs;
+  RxInt initWickets = 0.obs;
 
   var batsman1 = Batsman(name: '').obs;
   var batsman2 = Batsman(name: '').obs;
