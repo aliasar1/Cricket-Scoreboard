@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +24,7 @@ class ScoreController extends GetxController with LocalStorage {
   var currentBall = 0.obs;
   RxInt initScore = 0.obs;
   RxInt initWickets = 0.obs;
+  var currentOverBalls = <String>[].obs;
 
   var batsman1 = Batsman(name: '').obs;
   var batsman2 = Batsman(name: '').obs;
@@ -34,6 +37,16 @@ class ScoreController extends GetxController with LocalStorage {
     batsman2: Batsman(name: ''),
     currentBowler: Bowler(name: ''),
   ).obs;
+
+  var bowlers = <Bowler>[].obs;
+  var batsmen = <Batsman>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    bowlers.value = scoreboard.value.bowlers;
+    batsmen.value = [scoreboard.value.batsman1, scoreboard.value.batsman2];
+  }
 
   void updateBatsman(String name, String num) {
     if (num == "1") {
@@ -66,9 +79,19 @@ class ScoreController extends GetxController with LocalStorage {
   }
 
   void updateBowler(String name) {
-    scoreboard.update((sb) {
-      sb?.currentBowler = Bowler(name: name);
-    });
+    Bowler? existingBowler = bowlers.firstWhereOrNull(
+        (bowler) => bowler.name.toLowerCase() == name.toLowerCase());
+
+    if (existingBowler != null) {
+      scoreboard.update((sb) {
+        sb?.currentBowler = existingBowler;
+      });
+    } else {
+      scoreboard.update((sb) {
+        sb?.currentBowler = Bowler(name: name);
+      });
+      bowlers.add(Bowler(name: name));
+    }
   }
 
   void updateTarget(String target) {
@@ -77,61 +100,38 @@ class ScoreController extends GetxController with LocalStorage {
     });
   }
 
-  // void showNewBowlerSnackbar() {
-  //   Get.snackbar('New Over', 'Please select a new bowler for the next over.',
-  //       snackPosition: SnackPosition.TOP, duration: const Duration(seconds: 5));
-  //   Get.defaultDialog(
-  //     barrierDismissible: false,
-  //     title: "Select New Bowler",
-  //     content: TextField(
-  //       controller: bowlerController,
-  //       decoration: const InputDecoration(
-  //         hintText: "Enter bowler name",
-  //       ),
-  //     ),
-  //     textConfirm: "Confirm",
-  //     onConfirm: () {
-  //       String bowlerName = bowlerController.text.trim();
-  //       if (lastBowler.value.name == bowlerName) {
-  //         Get.snackbar(
-  //             'Invalid Bowler', 'The bowler cannot bowl two consecutive overs.',
-  //             snackPosition: SnackPosition.TOP);
-  //       } else {
-  //         updateBowler(bowlerName);
-  //         Get.back();
-  //       }
-  //     },
-  //   );
-  // }
-
-  void addRuns(int runs) {
+  void addRuns(int runs, String ballType) {
     scoreboard.update((sb) {
       sb?.addRuns(runs);
     });
-    addBall();
+
+    addBall(ballType);
   }
 
   void addWicket() {
     scoreboard.update((sb) {
       sb?.addWicket();
     });
-    addBall();
+    addBall('W');
   }
 
-  void addBall() {
+  void addBall(String ballType) {
     scoreboard.update((sb) {
-      sb?.addBall();
+      sb?.addBall(ballType);
     });
+    currentOverBalls.add(ballType);
     incrementBall();
   }
 
   void incrementBall() {
-    currentBall.value++;
+    if (!['NB', 'WD'].contains(currentOverBalls.last)) {
+      currentBall.value++;
+    }
     if (currentBall.value > 5) {
       currentBall.value = 0;
       currentOver.value++;
       rotateStrike();
-      // showNewBowlerSnackbar();
+      currentOverBalls.assignAll([]); // Clear the currentOverBalls list
     }
   }
 
@@ -166,5 +166,6 @@ class ScoreController extends GetxController with LocalStorage {
       currentBowler: Bowler(name: ''),
     );
     lastBowler.value = Bowler(name: '');
+    currentOverBalls.assignAll([]);
   }
 }

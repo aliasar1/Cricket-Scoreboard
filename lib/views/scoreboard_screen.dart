@@ -143,7 +143,7 @@ class ScoreboardScreen extends StatelessWidget {
                                             children: [
                                               InkWell(
                                                 onTap: () {
-                                                  controller.addRuns(1);
+                                                  controller.addRuns(1, "1");
                                                 },
                                                 child: Txt(
                                                   textAlign: TextAlign.end,
@@ -237,15 +237,22 @@ class ScoreboardScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 16,
-                                    itemBuilder: (context, index) =>
-                                        const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: BallContainer(size: 40, number: 2),
-                                    ),
-                                  ),
+                                  child: Obx(() => ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            controller.currentOverBalls.length,
+                                        itemBuilder: (context, index) {
+                                          String ball = controller
+                                              .currentOverBalls[index];
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: BallContainer(
+                                              type: ball,
+                                              size: 40,
+                                            ),
+                                          );
+                                        },
+                                      )),
                                 ),
                               ],
                             ),

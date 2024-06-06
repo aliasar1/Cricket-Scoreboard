@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class BallContainer extends StatelessWidget {
   final double size;
-  final int number;
+  final String type;
 
   const BallContainer({
     super.key,
     required this.size,
-    required this.number,
+    required this.type,
   });
 
   @override
@@ -25,7 +25,7 @@ class BallContainer extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          number.toString(),
+          type.toString(),
           style: TextStyle(
             color: Colors.black,
             fontSize: size / 2,
