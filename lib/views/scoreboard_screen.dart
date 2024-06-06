@@ -56,19 +56,21 @@ class ScoreboardScreen extends StatelessWidget {
               Row(
                 children: [
                   InkWell(
-                    onTap: () => buildUpdateTeam1Name(controller, true),
-                    child: CurvedParentContainer(
-                      isLeft: true,
-                      height: 110,
-                      width: 220,
-                      gradientColors: const [Colors.white, Colors.white70],
-                      child: SizedBox(
-                        width: 200,
-                        child: Txt(
-                          textAlign: TextAlign.center,
-                          text: controller.scoreboard.value.battingTeam,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
+                    onTap: () => controller.nextBattingTeam(),
+                    child: Obx(
+                      () => CurvedParentContainer(
+                        isLeft: true,
+                        height: 110,
+                        width: 220,
+                        gradientColors: const [Colors.white, Colors.white70],
+                        child: SizedBox(
+                          width: 200,
+                          child: Txt(
+                            textAlign: TextAlign.center,
+                            text: controller.scoreboard.value.battingTeam,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -93,7 +95,7 @@ class ScoreboardScreen extends StatelessWidget {
                                   onTogglerPressed: () =>
                                       controller.rotateStrike(),
                                   onBatsmanPressed: () =>
-                                      buildUpdateBatsmanDialog(controller, "1"),
+                                      controller.nextBatsman1(),
                                   isOnStrike: controller
                                       .scoreboard.value.batsman1.isOnStrike,
                                   name:
@@ -105,7 +107,7 @@ class ScoreboardScreen extends StatelessWidget {
                                   onTogglerPressed: () =>
                                       controller.rotateStrike(),
                                   onBatsmanPressed: () =>
-                                      buildUpdateBatsmanDialog(controller, "2"),
+                                      controller.nextBatsman2(),
                                   isOnStrike: controller
                                       .scoreboard.value.batsman2.isOnStrike,
                                   name:
@@ -221,8 +223,7 @@ class ScoreboardScreen extends StatelessWidget {
                                   height: 50,
                                   child: ListTile(
                                     title: InkWell(
-                                      onTap: () =>
-                                          buildUpdateBowlerDialog(controller),
+                                      onTap: () => controller.nextBowler(),
                                       child: Txt(
                                         text: controller.scoreboard.value
                                             .currentBowler.name,
@@ -242,10 +243,22 @@ class ScoreboardScreen extends StatelessWidget {
                                   child: Obx(() => ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount:
-                                            controller.currentOverBalls.length,
+                                            controller.currentOverBalls.length >
+                                                    9
+                                                ? 9
+                                                : controller
+                                                    .currentOverBalls.length,
                                         itemBuilder: (context, index) {
+                                          int displayIndex = controller
+                                                      .currentOverBalls.length >
+                                                  9
+                                              ? controller
+                                                      .currentOverBalls.length -
+                                                  9 +
+                                                  index
+                                              : index;
                                           String ball = controller
-                                              .currentOverBalls[index];
+                                              .currentOverBalls[displayIndex];
                                           return Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: BallContainer(
@@ -265,7 +278,7 @@ class ScoreboardScreen extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () => buildUpdateTeam1Name(controller, false),
+                    onTap: () => controller.nextBowlingTeam(),
                     child: CurvedParentContainer(
                       isLeft: false,
                       height: 110,
@@ -347,7 +360,7 @@ class ScoreboardScreen extends StatelessWidget {
                       CustomRoundButton(
                         text: "WB",
                         onPressed: () {
-                          controller.addRuns(1, "W");
+                          controller.incScoreBy1OnlyNoBallInc('WB');
                         },
                       ),
                       CustomRoundButton(

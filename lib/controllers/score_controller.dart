@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'package:aagpl_scoreboard/models/players.dart';
+import 'package:aagpl_scoreboard/models/teams.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,6 +47,118 @@ class ScoreController extends GetxController {
     super.onInit();
     bowlers.value = scoreboard.value.bowlers;
     batsmen.value = [scoreboard.value.batsman1, scoreboard.value.batsman2];
+  }
+
+  var teams = teamsAagpl.obs;
+  var players = playersAagpl.obs;
+
+  var battingTeamId = Rx<int?>(null);
+  var bowlingTeamId = Rx<int?>(null);
+  var batsman1Id = Rx<int?>(null);
+  var batsman2Id = Rx<int?>(null);
+  var bowlerId = Rx<int?>(null);
+
+  List<Map<String, dynamic>> get battingTeamPlayers {
+    if (battingTeamId.value == null) return [];
+    return players
+        .where((player) => player['teamId'] == battingTeamId.value)
+        .toList();
+  }
+
+  List<Map<String, dynamic>> get bowlingTeamPlayers {
+    if (bowlingTeamId.value == null) return [];
+    return players
+        .where((player) => player['teamId'] == bowlingTeamId.value)
+        .toList();
+  }
+
+  RxInt currentTeamIndex = 0.obs;
+  RxInt currentBatsman1Index = 0.obs;
+  RxInt currentBatsman2Index = 1.obs;
+  RxInt currentBowlerIndex = 0.obs;
+
+  void nextBatsman1() {
+    if (battingTeamId.value == null) return;
+
+    List<Map<String, dynamic>> players = battingTeamPlayers;
+    if (players.isEmpty) return;
+
+    currentBatsman1Index.value++;
+    if (currentBatsman1Index.value >= players.length) {
+      currentBatsman1Index.value = 0;
+    }
+
+    updateBatsman(players[currentBatsman1Index.value]['name'], "1");
+  }
+
+  void nextBatsman2() {
+    if (battingTeamId.value == null) return;
+    List<Map<String, dynamic>> players = battingTeamPlayers;
+    if (players.isEmpty) return;
+
+    if (currentBatsman2Index.value < players.length - 1) {
+      currentBatsman2Index.value++;
+    } else {
+      currentBatsman2Index.value = 0;
+    }
+    updateBatsman(players[currentBatsman2Index.value]['name'], "2");
+  }
+
+  void nextBowler() {
+    if (bowlingTeamId.value == null) return;
+
+    List<Map<String, dynamic>> players = bowlingTeamPlayers;
+    if (players.isEmpty) return;
+
+    currentBowlerIndex.value++;
+    if (currentBowlerIndex.value >= players.length) {
+      currentBowlerIndex.value = 0;
+    }
+
+    updateBowler(players[currentBowlerIndex.value]['name']);
+  }
+
+  void nextBattingTeam() {
+    if (currentTeamIndex.value < teams.length - 1) {
+      currentTeamIndex.value++;
+    } else {
+      currentTeamIndex.value = 0;
+    }
+    setBattingTeam(teams[currentTeamIndex.value]['id']);
+    updateBattingTeamName(teams[currentTeamIndex.value]['name']);
+  }
+
+  void nextBowlingTeam() {
+    if (currentTeamIndex.value < teams.length - 1) {
+      currentTeamIndex.value++;
+    } else {
+      currentTeamIndex.value = 0;
+    }
+    setBowlingTeam(teams[currentTeamIndex.value]['id']);
+    updateBowlingTeamName(teams[currentTeamIndex.value]['name']);
+  }
+
+  void setBattingTeam(int teamId) {
+    battingTeamId.value = teamId;
+    batsman1Id.value = null;
+    batsman2Id.value = null;
+  }
+
+  void setBowlingTeam(int teamId) {
+    bowlingTeamId.value = teamId;
+    bowlerId.value = null;
+  }
+
+  void setBatsman1(int playerId) {
+    batsman1Id.value = playerId;
+  }
+
+  void setBatsman2(int playerId) {
+    batsman2Id.value = playerId;
+  }
+
+  void setBowler(int playerId) {
+    bowlerId.value = playerId;
   }
 
   void updateBatsman(String name, String num) {
@@ -107,6 +221,13 @@ class ScoreController extends GetxController {
     addBall(ballType);
   }
 
+  void incScoreBy1OnlyNoBallInc(String type) {
+    scoreboard.update((sb) {
+      sb?.addRunWithoutRotation(1);
+    });
+    currentOverBalls.add(type);
+  }
+
   void addWicket() {
     scoreboard.update((sb) {
       sb?.addWicket();
@@ -123,18 +244,65 @@ class ScoreController extends GetxController {
   }
 
   void incrementBall() {
-    if (!['NB', 'WD'].contains(currentOverBalls.last)) {
+    if (!['NB', 'WB'].contains(currentOverBalls.last)) {
       currentBall.value++;
     }
     if (currentBall.value > 5) {
       currentBall.value = 0;
       currentOver.value++;
       rotateStrike();
-      currentOverBalls.assignAll([]); // Clear the currentOverBalls list
+      currentOverBalls.assignAll([]);
     }
   }
 
   void setupBoard() {
+    var battingTeam =
+        teams.firstWhereOrNull((team) => team['id'] == battingTeamId.value);
+    if (battingTeam != null) {
+      battingTeamController.text = battingTeam['name'];
+    } else {
+      battingTeamController.clear();
+    }
+
+    var bowlingTeam =
+        teams.firstWhereOrNull((team) => team['id'] == bowlingTeamId.value);
+    if (bowlingTeam != null) {
+      bowlingTeamController.text = bowlingTeam['name'];
+    } else {
+      bowlingTeamController.clear();
+    }
+
+    var batsman1 = battingTeamPlayers
+        .firstWhereOrNull((player) => player['id'] == batsman1Id.value);
+    if (batsman1 != null) {
+      batsman1Controller.text = batsman1['name'];
+    } else {
+      batsman1Controller.clear();
+    }
+
+    var batsman2 = battingTeamPlayers
+        .firstWhereOrNull((player) => player['id'] == batsman2Id.value);
+    if (batsman2 != null) {
+      batsman2Controller.text = batsman2['name'];
+    } else {
+      batsman2Controller.clear();
+    }
+
+    var bowler = bowlingTeamPlayers
+        .firstWhereOrNull((player) => player['id'] == bowlerId.value);
+    if (bowler != null) {
+      bowlerController.text = bowler['name'];
+    } else {
+      bowlerController.clear();
+    }
+
+    givenTargetController.text = scoreboard.value.target.toString();
+
+    totalOversController.clear();
+    totalCurrentWicketsController.clear();
+    currentRunsController.clear();
+
+    // Update scoreboard values
     scoreboard.update((sb) {
       sb?.battingTeam = battingTeamController.text;
       sb?.bowlingTeam = bowlingTeamController.text;
@@ -143,6 +311,7 @@ class ScoreController extends GetxController {
       sb?.currentBowler = Bowler(name: bowlerController.text);
       sb?.target = int.tryParse(givenTargetController.text) ?? 0;
     });
+
     lastBowler.value = Bowler(name: '');
   }
 

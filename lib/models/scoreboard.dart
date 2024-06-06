@@ -48,6 +48,12 @@ class Scoreboard {
     }
   }
 
+  void addRunWithoutRotation(int runs) {
+    totalRuns += runs;
+    currentBowler.addRun(runs);
+    _updateBowlerStats(currentBowler, runs);
+  }
+
   void addBall(String ballType) {
     currentBowler.addBall();
     _updateBowlerStats(currentBowler, ballType);
@@ -94,8 +100,6 @@ class Scoreboard {
       if (bowlers[i].name.toLowerCase() == bowler.name.toLowerCase()) {
         if (ballType is int) {
           bowlers[i].addRun(ballType);
-        } else {
-          bowlers[i].addBall();
         }
         found = true;
         break;
