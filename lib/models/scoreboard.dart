@@ -1,15 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:aagpl_scoreboard/models/batsman.dart';
-import 'package:aagpl_scoreboard/models/bowler.dart';
+import 'batsman.dart';
+import 'bowler.dart';
 
 class Scoreboard {
   String battingTeam;
   String bowlingTeam;
   int totalRuns;
   int wickets;
-  int overs;
+  double overs;
   int target;
   Batsman batsman1;
   Batsman batsman2;
@@ -20,7 +19,7 @@ class Scoreboard {
     required this.bowlingTeam,
     this.totalRuns = 0,
     this.wickets = 0,
-    this.overs = 0,
+    this.overs = 0.0,
     this.target = 0,
     required this.batsman1,
     required this.batsman2,
@@ -35,22 +34,39 @@ class Scoreboard {
       batsman2.addRuns(runs);
     }
     currentBowler.addRun(runs);
+
+    if (runs % 2 != 0) {
+      toggleStrike();
+    }
   }
 
   void addBall() {
     currentBowler.addBall();
-    overs++;
-    batsman1.toggleStrike();
-    batsman2.toggleStrike();
+    overs += 0.1;
+    if (overs - overs.truncate() >= 0.6) {
+      overs = overs.truncate() + 1;
+    }
+
+    if (batsman1.isOnStrike) {
+      batsman1.ballsFaced++;
+    } else {
+      batsman2.ballsFaced++;
+    }
   }
 
   void addWicket() {
     wickets++;
+    currentBowler.addWicket();
     if (batsman1.isOnStrike) {
       batsman1 = Batsman(name: '');
     } else {
       batsman2 = Batsman(name: '');
     }
+  }
+
+  void toggleStrike() {
+    batsman1.toggleStrike();
+    batsman2.toggleStrike();
   }
 
   Map<String, dynamic> toMap() {
@@ -73,7 +89,7 @@ class Scoreboard {
       bowlingTeam: map['bowlingTeam'] as String,
       totalRuns: map['totalRuns'] as int,
       wickets: map['wickets'] as int,
-      overs: map['overs'] as int,
+      overs: map['overs'] as double,
       target: map['target'] as int,
       batsman1: Batsman.fromMap(map['batsman1'] as Map<String, dynamic>),
       batsman2: Batsman.fromMap(map['batsman2'] as Map<String, dynamic>),

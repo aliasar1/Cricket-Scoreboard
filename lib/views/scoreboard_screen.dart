@@ -2,9 +2,13 @@ import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../constants/fonts.dart';
+import '../constants/values.dart';
 import '../widgets/ball_container.dart';
 import '../widgets/curved_bottom_container.dart';
+import '../widgets/custom/custom_button.dart';
 import '../widgets/custom/custom_text.dart';
+import '../widgets/custom/custom_text_form_field.dart';
 import '../widgets/custom/custom_tile.dart';
 import '../widgets/gradient_round_container.dart';
 
@@ -49,18 +53,21 @@ class ScoreboardScreen extends StatelessWidget {
               const Spacer(),
               Row(
                 children: [
-                  CurvedParentContainer(
-                    isLeft: true,
-                    height: 110,
-                    width: 220,
-                    gradientColors: const [Colors.white, Colors.white70],
-                    child: SizedBox(
-                      width: 200,
-                      child: Txt(
-                        textAlign: TextAlign.center,
-                        text: controller.scoreboard.value.battingTeam,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: () => buildUpdateTeam1Name(controller, true),
+                    child: CurvedParentContainer(
+                      isLeft: true,
+                      height: 110,
+                      width: 220,
+                      gradientColors: const [Colors.white, Colors.white70],
+                      child: SizedBox(
+                        width: 200,
+                        child: Txt(
+                          textAlign: TextAlign.center,
+                          text: controller.scoreboard.value.battingTeam,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -81,6 +88,10 @@ class ScoreboardScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 CustomListTile(
+                                  onTogglerPressed: () =>
+                                      controller.rotateStrike(),
+                                  onBatsmanPressed: () =>
+                                      buildUpdateBatsmanDialog(controller, "1"),
                                   isOnStrike: controller
                                       .scoreboard.value.batsman1.isOnStrike,
                                   name:
@@ -89,6 +100,10 @@ class ScoreboardScreen extends StatelessWidget {
                                       "${controller.scoreboard.value.batsman1.runs} (${controller.scoreboard.value.batsman1.ballsFaced})",
                                 ),
                                 CustomListTile(
+                                  onTogglerPressed: () =>
+                                      controller.rotateStrike(),
+                                  onBatsmanPressed: () =>
+                                      buildUpdateBatsmanDialog(controller, "2"),
                                   isOnStrike: controller
                                       .scoreboard.value.batsman2.isOnStrike,
                                   name:
@@ -124,20 +139,42 @@ class ScoreboardScreen extends StatelessWidget {
                                         child: Padding(
                                           padding:
                                               const EdgeInsets.only(right: 8.0),
-                                          child: Txt(
-                                            textAlign: TextAlign.end,
-                                            text:
-                                                " ${controller.scoreboard.value.totalRuns}/${controller.scoreboard.value.wickets} ",
-                                            fontSize: 36,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                          child: Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  controller.addRuns(1);
+                                                },
+                                                child: Txt(
+                                                  textAlign: TextAlign.end,
+                                                  text:
+                                                      " ${controller.scoreboard.value.totalRuns}/ ",
+                                                  fontSize: 36,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  controller.addWicket();
+                                                },
+                                                child: Txt(
+                                                  textAlign: TextAlign.end,
+                                                  text:
+                                                      "${controller.scoreboard.value.wickets} ",
+                                                  fontSize: 36,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
                                       const SizedBox(width: 35),
                                       Txt(
                                         text:
-                                            "Over: ${controller.scoreboard.value.overs}",
+                                            "Over: ${controller.currentOver.value}.${controller.currentBall.value}",
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
@@ -149,8 +186,8 @@ class ScoreboardScreen extends StatelessWidget {
                                     children: [
                                       Txt(
                                         text:
-                                            "${controller.scoreboard.value.bowlingTeam} ",
-                                        fontSize: 30,
+                                            "${controller.scoreboard.value.battingTeam} ",
+                                        fontSize: 36,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
@@ -163,8 +200,8 @@ class ScoreboardScreen extends StatelessWidget {
                                       ),
                                       Txt(
                                         text:
-                                            "${controller.scoreboard.value.battingTeam} ",
-                                        fontSize: 36,
+                                            "${controller.scoreboard.value.bowlingTeam} ",
+                                        fontSize: 30,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
@@ -181,15 +218,19 @@ class ScoreboardScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 50,
                                   child: ListTile(
-                                    title: Txt(
-                                      text: controller
-                                          .scoreboard.value.currentBowler.name,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
+                                    title: InkWell(
+                                      onTap: () =>
+                                          buildUpdateBowlerDialog(controller),
+                                      child: Txt(
+                                        text: controller.scoreboard.value
+                                            .currentBowler.name,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     trailing: Txt(
                                       text:
-                                          "${controller.scoreboard.value.currentBowler.runsConceded}-${controller.scoreboard.value.currentBowler.overs}",
+                                          "${controller.scoreboard.value.currentBowler.runsConceded}-${controller.scoreboard.value.currentBowler.wicketsTaken} (${controller.scoreboard.value.currentBowler.overs}.${controller.scoreboard.value.currentBowler.balls})",
                                       fontSize: 30,
                                       fontWeight: FontWeight.normal,
                                     ),
@@ -214,19 +255,22 @@ class ScoreboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CurvedParentContainer(
-                    isLeft: false,
-                    height: 110,
-                    width: 220,
-                    gradientColors: const [Colors.white70, Colors.white],
-                    child: Center(
-                      child: SizedBox(
-                        width: 200,
-                        child: Txt(
-                          textAlign: TextAlign.center,
-                          text: controller.scoreboard.value.bowlingTeam,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: () => buildUpdateTeam1Name(controller, false),
+                    child: CurvedParentContainer(
+                      isLeft: false,
+                      height: 110,
+                      width: 220,
+                      gradientColors: const [Colors.white70, Colors.white],
+                      child: Center(
+                        child: SizedBox(
+                          width: 200,
+                          child: Txt(
+                            textAlign: TextAlign.center,
+                            text: controller.scoreboard.value.bowlingTeam,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -236,6 +280,128 @@ class ScoreboardScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> buildUpdateTeam1Name(
+      ScoreController controller, bool isBattingTeam) {
+    return Get.defaultDialog(
+      title: "Update Team",
+      backgroundColor: Colors.white,
+      titleStyle: const TextStyle(
+          color: ColorsManager.primaryColor,
+          fontWeight: FontWeight.bold,
+          fontSize: FontSize.titleFontSize),
+      titlePadding:
+          const EdgeInsets.symmetric(vertical: PaddingManager.paddingM),
+      radius: 5,
+      content: Column(
+        children: [
+          CustomTextFormField(
+            controller: isBattingTeam
+                ? controller.battingTeamController
+                : controller.bowlingTeamController,
+            labelText: "Name",
+            prefixIconData: Icons.person,
+            textInputAction: TextInputAction.next,
+            autofocus: false,
+          ),
+          const SizedBox(height: SizeManager.sizeM),
+          CustomButton(
+            color: ColorsManager.secondaryColor,
+            onPressed: () {
+              isBattingTeam
+                  ? controller.updateBattingTeamName(
+                      controller.battingTeamController.text.trim())
+                  : controller.updateBowlingTeamName(
+                      controller.bowlingTeamController.text.trim());
+              Get.back();
+            },
+            text: "Update",
+            hasInfiniteWidth: true,
+            textColor: ColorsManager.whiteColor,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> buildUpdateBowlerDialog(ScoreController controller) {
+    return Get.defaultDialog(
+      title: "Update Bowler",
+      backgroundColor: Colors.white,
+      titleStyle: const TextStyle(
+          color: ColorsManager.primaryColor,
+          fontWeight: FontWeight.bold,
+          fontSize: FontSize.titleFontSize),
+      titlePadding:
+          const EdgeInsets.symmetric(vertical: PaddingManager.paddingM),
+      radius: 5,
+      content: Column(
+        children: [
+          CustomTextFormField(
+            controller: controller.bowlerController,
+            labelText: "Name",
+            prefixIconData: Icons.person,
+            textInputAction: TextInputAction.next,
+            autofocus: false,
+          ),
+          const SizedBox(height: SizeManager.sizeM),
+          CustomButton(
+            color: ColorsManager.secondaryColor,
+            onPressed: () {
+              controller.updateBowler(controller.bowlerController.text.trim());
+              Get.back();
+            },
+            text: "Update",
+            hasInfiniteWidth: true,
+            textColor: ColorsManager.whiteColor,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> buildUpdateBatsmanDialog(
+      ScoreController controller, String number) {
+    return Get.defaultDialog(
+      title: "Update Batsman",
+      backgroundColor: Colors.white,
+      titleStyle: const TextStyle(
+          color: ColorsManager.primaryColor,
+          fontWeight: FontWeight.bold,
+          fontSize: FontSize.titleFontSize),
+      titlePadding:
+          const EdgeInsets.symmetric(vertical: PaddingManager.paddingM),
+      radius: 5,
+      content: Column(
+        children: [
+          CustomTextFormField(
+            controller: number == "1"
+                ? controller.batsman1Controller
+                : controller.batsman2Controller,
+            labelText: "Name",
+            prefixIconData: Icons.person,
+            textInputAction: TextInputAction.next,
+            autofocus: false,
+          ),
+          const SizedBox(height: SizeManager.sizeM),
+          CustomButton(
+            color: ColorsManager.secondaryColor,
+            onPressed: () {
+              number == "1"
+                  ? controller.updateBatsman(
+                      controller.batsman1Controller.text.trim(), number)
+                  : controller.updateBatsman(
+                      controller.batsman2Controller.text.trim(), number);
+              Get.back();
+            },
+            text: "Update",
+            hasInfiniteWidth: true,
+            textColor: ColorsManager.whiteColor,
+          ),
+        ],
       ),
     );
   }

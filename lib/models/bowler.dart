@@ -3,12 +3,16 @@ import 'dart:convert';
 class Bowler {
   String name;
   int runsConceded;
-  double overs;
+  int overs;
+  int balls;
+  int wicketsTaken;
 
   Bowler({
     required this.name,
     this.runsConceded = 0,
-    this.overs = 0.0,
+    this.overs = 0,
+    this.balls = 0,
+    this.wicketsTaken = 0,
   });
 
   void addRun(int run) {
@@ -16,21 +20,30 @@ class Bowler {
   }
 
   void addBall() {
-    overs += 0.1;
-    if (overs - overs.truncate() >= 0.6) {
-      overs = overs.truncate() + 1;
+    balls++;
+    if (balls % 6 == 0) {
+      overs++;
+      balls = 0;
     }
+  }
+
+  void addWicket() {
+    wicketsTaken++;
   }
 
   Bowler copyWith({
     String? name,
     int? runsConceded,
-    double? overs,
+    int? overs,
+    int? balls,
+    int? wicketsTaken,
   }) {
     return Bowler(
       name: name ?? this.name,
       runsConceded: runsConceded ?? this.runsConceded,
       overs: overs ?? this.overs,
+      balls: balls ?? this.balls,
+      wicketsTaken: wicketsTaken ?? this.wicketsTaken,
     );
   }
 
@@ -39,6 +52,8 @@ class Bowler {
       'name': name,
       'runsConceded': runsConceded,
       'overs': overs,
+      'balls': balls,
+      'wicketsTaken': wicketsTaken,
     };
   }
 
@@ -46,7 +61,9 @@ class Bowler {
     return Bowler(
       name: map['name'] as String,
       runsConceded: map['runsConceded'] as int,
-      overs: map['overs'] as double,
+      overs: map['overs'] as int,
+      balls: map['balls'] as int,
+      wicketsTaken: map['wicketsTaken'] as int,
     );
   }
 
@@ -54,20 +71,4 @@ class Bowler {
 
   factory Bowler.fromJson(String source) =>
       Bowler.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() =>
-      'Bowler(name: $name, runsConceded: $runsConceded, overs: $overs)';
-
-  @override
-  bool operator ==(covariant Bowler other) {
-    if (identical(this, other)) return true;
-
-    return other.name == name &&
-        other.runsConceded == runsConceded &&
-        other.overs == overs;
-  }
-
-  @override
-  int get hashCode => name.hashCode ^ runsConceded.hashCode ^ overs.hashCode;
 }

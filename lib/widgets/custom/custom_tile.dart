@@ -5,12 +5,16 @@ class CustomListTile extends StatelessWidget {
   final bool isOnStrike;
   final String name;
   final String stats;
+  final VoidCallback onBatsmanPressed;
+  final VoidCallback onTogglerPressed;
 
   const CustomListTile({
     Key? key,
     required this.isOnStrike,
     required this.name,
     required this.stats,
+    required this.onBatsmanPressed,
+    required this.onTogglerPressed,
   }) : super(key: key);
 
   @override
@@ -25,20 +29,30 @@ class CustomListTile extends StatelessWidget {
       child: Row(
         children: [
           isOnStrike
-              ? const Icon(
-                  Icons.arrow_right,
-                  color: Colors.green,
-                  size: 50,
+              ? InkWell(
+                  onTap: onTogglerPressed,
+                  child: const Icon(
+                    Icons.arrow_right,
+                    color: Colors.green,
+                    size: 50,
+                  ),
                 )
-              : const SizedBox(
-                  width: 50,
+              : InkWell(
+                  onTap: onTogglerPressed,
+                  child: const SizedBox(
+                    width: 50,
+                    height: 50,
+                  ),
                 ),
           const SizedBox(width: 10),
           Expanded(
-            child: Txt(
-              text: name,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+            child: InkWell(
+              onTap: onBatsmanPressed,
+              child: Txt(
+                text: name,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Txt(

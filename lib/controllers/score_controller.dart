@@ -18,7 +18,8 @@ class ScoreController extends GetxController with LocalStorage {
       TextEditingController();
   final TextEditingController currentRunsController = TextEditingController();
 
-  RxInt initOver = 0.obs;
+  var currentOver = 0.obs;
+  var currentBall = 0.obs;
   RxInt initScore = 0.obs;
   RxInt initWickets = 0.obs;
 
@@ -33,22 +34,76 @@ class ScoreController extends GetxController with LocalStorage {
     currentBowler: Bowler(name: ''),
   ).obs;
 
-  void updateScore(int runs) {
+  void updateBatsman(String name, String num) {
+    if (num == "1") {
+      scoreboard.update((sb) {
+        sb?.batsman1 = Batsman(name: name, isOnStrike: true);
+      });
+    } else {
+      scoreboard.update((sb) {
+        sb?.batsman2 = Batsman(name: name);
+      });
+    }
+  }
+
+  void rotateStrike() {
+    scoreboard.update((sb) {
+      sb?.toggleStrike();
+    });
+  }
+
+  void updateBattingTeamName(String name) {
+    scoreboard.update((sb) {
+      sb?.battingTeam = name;
+    });
+  }
+
+  void updateBowlingTeamName(String name) {
+    scoreboard.update((sb) {
+      sb?.bowlingTeam = name;
+    });
+  }
+
+  void updateBowler(String name) {
+    scoreboard.update((sb) {
+      sb?.currentBowler = Bowler(name: name);
+    });
+  }
+
+  void updateTarget(String target) {
+    scoreboard.update((sb) {
+      sb?.target = int.tryParse(target) ?? 0;
+    });
+  }
+
+  void addRuns(int runs) {
     scoreboard.update((sb) {
       sb?.addRuns(runs);
     });
+    addBall();
   }
 
-  void updateWicket() {
+  void addWicket() {
     scoreboard.update((sb) {
       sb?.addWicket();
     });
+    incrementBall();
   }
 
-  void updateBall() {
+  void addBall() {
     scoreboard.update((sb) {
       sb?.addBall();
     });
+    incrementBall();
+  }
+
+  void incrementBall() {
+    currentBall.value++;
+    if (currentBall.value > 5) {
+      currentBall.value = 0;
+      currentOver.value++;
+      rotateStrike();
+    }
   }
 
   void setupBoard() {
@@ -58,7 +113,6 @@ class ScoreController extends GetxController with LocalStorage {
       sb?.batsman1 = Batsman(name: batsman1Controller.text, isOnStrike: true);
       sb?.batsman2 = Batsman(name: batsman2Controller.text);
       sb?.currentBowler = Bowler(name: bowlerController.text);
-      sb?.overs = int.tryParse(totalOversController.text) ?? 0;
       sb?.target = int.tryParse(givenTargetController.text) ?? 0;
     });
   }

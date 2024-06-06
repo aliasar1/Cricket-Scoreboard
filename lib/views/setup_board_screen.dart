@@ -17,122 +17,135 @@ class SetupScoreboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: 360,
-        height: 500,
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Txt(
-              text: "Team Data",
-              color: ColorsManager.primaryColor,
-              fontSize: FontSize.titleFontSize,
-              fontWeight: FontWeight.bold,
-            ),
-            CustomTextFormField(
-              controller: scoreController.battingTeamController,
-              labelText: "Batting Team Name",
-              autofocus: false,
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.groups_2,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Batting Team Name is required.";
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              controller: scoreController.bowlingTeamController,
-              labelText: "Bowling Team Name",
-              autofocus: false,
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.groups_2,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Bowling team name required.";
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              controller: scoreController.batsman1Controller,
-              labelText: "Batsman 1 Name",
-              autofocus: false,
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.sports_cricket,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Batsman name is required.";
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              controller: scoreController.batsman2Controller,
-              labelText: "Batsman 2 Name",
-              autofocus: false,
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.sports_cricket,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Batsman name is required.";
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              controller: scoreController.bowlerController,
-              labelText: "Bowler Name",
-              autofocus: false,
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.sports_baseball,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Bowler name is required.";
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              controller: scoreController.totalOversController,
-              labelText: "Total Overs",
-              autofocus: false,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.ballot,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Total over is required.";
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              controller: scoreController.givenTargetController,
-              labelText: "Target",
-              autofocus: false,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.done,
-              prefixIconData: Icons.crisis_alert,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomButton(
+            const Icon(
+              Icons.sports_cricket,
+              size: 300,
               color: ColorsManager.secondaryColor,
-              hasInfiniteWidth: false,
-              onPressed: () {
-                scoreController.setupBoard();
-                Get.offAll(const ScoreboardScreen());
-              },
-              text: "Setup Board",
-              textColor: ColorsManager.whiteColor,
+            ),
+            SizedBox(
+              width: 360,
+              height: 500,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Txt(
+                    text: "Team Data",
+                    color: ColorsManager.primaryColor,
+                    fontSize: FontSize.titleFontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.battingTeamController,
+                    labelText: "Batting Team Name",
+                    autofocus: false,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.groups_2,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Batting Team Name is required.";
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.bowlingTeamController,
+                    labelText: "Bowling Team Name",
+                    autofocus: false,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.groups_2,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Bowling team name required.";
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.batsman1Controller,
+                    labelText: "Batsman 1 Name",
+                    autofocus: false,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.sports_cricket,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Batsman name is required.";
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.batsman2Controller,
+                    labelText: "Batsman 2 Name",
+                    autofocus: false,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.sports_cricket,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Batsman name is required.";
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.bowlerController,
+                    labelText: "Bowler Name",
+                    autofocus: false,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.sports_baseball,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Bowler name is required.";
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.totalOversController,
+                    labelText: "Total Overs",
+                    autofocus: false,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.ballot,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Total over is required.";
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFormField(
+                    controller: scoreController.givenTargetController,
+                    labelText: "Target",
+                    autofocus: false,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    prefixIconData: Icons.crisis_alert,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton(
+                    color: ColorsManager.secondaryColor,
+                    hasInfiniteWidth: false,
+                    onPressed: () {
+                      scoreController.setupBoard();
+                      Get.offAll(const ScoreboardScreen());
+                    },
+                    text: "Setup Board",
+                    textColor: ColorsManager.whiteColor,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
