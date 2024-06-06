@@ -18,6 +18,10 @@ class Batsman {
     ballsFaced++;
   }
 
+  void addBall() {
+    ballsFaced++;
+  }
+
   void toggleStrike() {
     isOnStrike = !isOnStrike;
   }

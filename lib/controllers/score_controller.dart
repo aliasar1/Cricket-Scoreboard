@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../local/local_storage.dart';
@@ -26,6 +26,7 @@ class ScoreController extends GetxController with LocalStorage {
   var batsman1 = Batsman(name: '').obs;
   var batsman2 = Batsman(name: '').obs;
   var currentBowler = Bowler(name: '').obs;
+  var lastBowler = Bowler(name: '').obs;
   var scoreboard = Scoreboard(
     battingTeam: '',
     bowlingTeam: '',
@@ -76,6 +77,33 @@ class ScoreController extends GetxController with LocalStorage {
     });
   }
 
+  // void showNewBowlerSnackbar() {
+  //   Get.snackbar('New Over', 'Please select a new bowler for the next over.',
+  //       snackPosition: SnackPosition.TOP, duration: const Duration(seconds: 5));
+  //   Get.defaultDialog(
+  //     barrierDismissible: false,
+  //     title: "Select New Bowler",
+  //     content: TextField(
+  //       controller: bowlerController,
+  //       decoration: const InputDecoration(
+  //         hintText: "Enter bowler name",
+  //       ),
+  //     ),
+  //     textConfirm: "Confirm",
+  //     onConfirm: () {
+  //       String bowlerName = bowlerController.text.trim();
+  //       if (lastBowler.value.name == bowlerName) {
+  //         Get.snackbar(
+  //             'Invalid Bowler', 'The bowler cannot bowl two consecutive overs.',
+  //             snackPosition: SnackPosition.TOP);
+  //       } else {
+  //         updateBowler(bowlerName);
+  //         Get.back();
+  //       }
+  //     },
+  //   );
+  // }
+
   void addRuns(int runs) {
     scoreboard.update((sb) {
       sb?.addRuns(runs);
@@ -87,7 +115,7 @@ class ScoreController extends GetxController with LocalStorage {
     scoreboard.update((sb) {
       sb?.addWicket();
     });
-    incrementBall();
+    addBall();
   }
 
   void addBall() {
@@ -103,6 +131,7 @@ class ScoreController extends GetxController with LocalStorage {
       currentBall.value = 0;
       currentOver.value++;
       rotateStrike();
+      // showNewBowlerSnackbar();
     }
   }
 
@@ -115,6 +144,7 @@ class ScoreController extends GetxController with LocalStorage {
       sb?.currentBowler = Bowler(name: bowlerController.text);
       sb?.target = int.tryParse(givenTargetController.text) ?? 0;
     });
+    lastBowler.value = Bowler(name: '');
   }
 
   void clearBoard() {
@@ -135,5 +165,6 @@ class ScoreController extends GetxController with LocalStorage {
       batsman2: Batsman(name: ''),
       currentBowler: Bowler(name: ''),
     );
+    lastBowler.value = Bowler(name: '');
   }
 }

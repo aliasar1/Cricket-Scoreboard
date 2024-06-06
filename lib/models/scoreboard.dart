@@ -46,12 +46,6 @@ class Scoreboard {
     if (overs - overs.truncate() >= 0.6) {
       overs = overs.truncate() + 1;
     }
-
-    if (batsman1.isOnStrike) {
-      batsman1.ballsFaced++;
-    } else {
-      batsman2.ballsFaced++;
-    }
   }
 
   void addWicket() {
