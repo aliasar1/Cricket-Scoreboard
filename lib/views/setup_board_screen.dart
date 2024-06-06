@@ -11,6 +11,7 @@ import '../widgets/custom/custom_text_form_field.dart';
 
 class SetupScoreboardScreen extends StatelessWidget {
   SetupScoreboardScreen({super.key});
+  static const String routeName = '/SetupScoreboardScreen';
 
   final scoreController = Get.put(ScoreController());
 
@@ -166,14 +167,6 @@ class SetupScoreboardScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    CustomTextFormField(
-                      controller: scoreController.givenTargetController,
-                      labelText: "Target",
-                      autofocus: false,
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
-                      prefixIconData: Icons.crisis_alert,
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -182,7 +175,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                       hasInfiniteWidth: false,
                       onPressed: () {
                         scoreController.setupBoard();
-                        Get.offAll(const ScoreboardScreen());
+                        Get.offAll(ScoreboardScreen());
                       },
                       text: "Setup Board",
                       textColor: ColorsManager.whiteColor,

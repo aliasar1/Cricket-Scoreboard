@@ -1,4 +1,5 @@
 import 'package:aagpl_scoreboard/constants/strings.dart';
+import 'package:aagpl_scoreboard/views/login_screen.dart';
 import 'package:aagpl_scoreboard/views/scoreboard_screen.dart';
 import 'package:aagpl_scoreboard/views/setup_board_screen.dart';
 import 'package:flutter/gestures.dart';
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => SetupScoreboardScreen(),
-        "/ScoreboardScreen": (context) => const ScoreboardScreen()
+        "/": (context) => AdminLoginScreen(),
+        "/SetupScoreboardScreen": (context) => SetupScoreboardScreen(),
+        "/ScoreboardScreen": (context) => ScoreboardScreen()
       },
     );
   }

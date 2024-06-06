@@ -15,33 +15,13 @@ import '../widgets/custom/custom_tile.dart';
 import '../widgets/gradient_round_container.dart';
 
 class ScoreboardScreen extends StatelessWidget {
-  const ScoreboardScreen({Key? key}) : super(key: key);
+  ScoreboardScreen({Key? key}) : super(key: key);
   static const String routeName = '/ScoreboardScreen';
 
+  final ScoreController controller = Get.find<ScoreController>();
   @override
   Widget build(BuildContext context) {
-    final ScoreController controller = Get.find<ScoreController>();
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Txt(
-          text: "AAGPL SEASON 13",
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-        ),
-        centerTitle: true,
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.book),
-              title: const Txt(text: "Setup Board"),
-            )
-          ],
-        ),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -135,7 +115,7 @@ class ScoreboardScreen extends StatelessWidget {
                                     children: [
                                       GradientRoundedContainer(
                                         height: 50,
-                                        width: 140,
+                                        width: 160,
                                         gradientColors: const [
                                           ColorsManager.redColor,
                                           ColorsManager.primaryColor
