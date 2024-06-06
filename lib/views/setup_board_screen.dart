@@ -25,7 +25,16 @@ class SetupScoreboardScreen extends StatelessWidget {
             const Icon(
               Icons.sports_cricket,
               size: 300,
-              color: ColorsManager.secondaryColor,
+              color: ColorsManager.primaryColor,
+            ),
+            const Txt(
+              text: "AAGPL SEASON 13",
+              color: ColorsManager.primaryColor,
+              fontSize: FontSize.headerFontSize,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(
+              height: 10,
             ),
             SizedBox(
               width: 360,
@@ -135,7 +144,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                     height: 10,
                   ),
                   CustomButton(
-                    color: ColorsManager.secondaryColor,
+                    color: ColorsManager.primaryColor,
                     hasInfiniteWidth: false,
                     onPressed: () {
                       scoreController.setupBoard();

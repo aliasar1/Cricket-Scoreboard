@@ -3,12 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../local/local_storage.dart';
 import '../models/batsman.dart';
 import '../models/bowler.dart';
 import '../models/scoreboard.dart';
 
-class ScoreController extends GetxController with LocalStorage {
+class ScoreController extends GetxController {
   final TextEditingController batsman1Controller = TextEditingController();
   final TextEditingController batsman2Controller = TextEditingController();
   final TextEditingController bowlerController = TextEditingController();

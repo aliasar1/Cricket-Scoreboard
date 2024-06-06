@@ -81,7 +81,7 @@ class CustomTextFormField extends StatelessWidget {
             ? Icon(
                 prefixIconData,
                 size: 20,
-                color: ColorsManager.lightSecondaryColor,
+                color: ColorsManager.lightPrimaryColor,
               )
             : null,
         suffixIcon: suffixIconData != null
@@ -90,7 +90,7 @@ class CustomTextFormField extends StatelessWidget {
                 child: Icon(
                   suffixIconData,
                   size: 20,
-                  color: ColorsManager.lightSecondaryColor,
+                  color: ColorsManager.lightPrimaryColor,
                 ),
               )
             : null,

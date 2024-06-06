@@ -1,15 +1,15 @@
 import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomRoundButton extends StatelessWidget {
+class CustomSquareButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomRoundButton({
-    super.key,
+  const CustomSquareButton({
+    Key? key,
     required this.text,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +20,19 @@ class CustomRoundButton extends StatelessWidget {
         width: 44,
         decoration: BoxDecoration(
           color: ColorsManager.whiteColor,
-          shape: BoxShape.circle,
+          borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             color: ColorsManager.primaryColor,
             width: 2.0,
           ),
         ),
         child: Center(
-          child: FittedBox(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: ColorsManager.primaryColor,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: ColorsManager.primaryColor,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

@@ -7,6 +7,8 @@ import '../constants/values.dart';
 import '../widgets/ball_container.dart';
 import '../widgets/curved_bottom_container.dart';
 import '../widgets/custom/custom_button.dart';
+import '../widgets/custom/custom_rounded_button.dart';
+import '../widgets/custom/custom_squared_button.dart';
 import '../widgets/custom/custom_text.dart';
 import '../widgets/custom/custom_text_form_field.dart';
 import '../widgets/custom/custom_tile.dart';
@@ -14,7 +16,7 @@ import '../widgets/gradient_round_container.dart';
 
 class ScoreboardScreen extends StatelessWidget {
   const ScoreboardScreen({Key? key}) : super(key: key);
-  static const String routeName = '/scoreboard';
+  static const String routeName = '/ScoreboardScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,7 @@ class ScoreboardScreen extends StatelessWidget {
                                     children: [
                                       GradientRoundedContainer(
                                         height: 50,
-                                        width: 130,
+                                        width: 140,
                                         gradientColors: const [
                                           ColorsManager.redColor,
                                           ColorsManager.primaryColor
@@ -187,7 +189,7 @@ class ScoreboardScreen extends StatelessWidget {
                                       Txt(
                                         text:
                                             "${controller.scoreboard.value.battingTeam} ",
-                                        fontSize: 36,
+                                        fontSize: 32,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
@@ -201,7 +203,7 @@ class ScoreboardScreen extends StatelessWidget {
                                       Txt(
                                         text:
                                             "${controller.scoreboard.value.bowlingTeam} ",
-                                        fontSize: 30,
+                                        fontSize: 32,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
@@ -284,6 +286,97 @@ class ScoreboardScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                height: 60,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: ColorsManager.lightPrimaryColor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(80),
+                  ),
+                ),
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomRoundButton(
+                        text: "1",
+                        onPressed: () {
+                          controller.addRuns(1, "1");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "2",
+                        onPressed: () {
+                          controller.addRuns(2, "2");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "3",
+                        onPressed: () {
+                          controller.addRuns(3, "3");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "4",
+                        onPressed: () {
+                          controller.addRuns(4, "4");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "6",
+                        onPressed: () {
+                          controller.addRuns(6, "6");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "0",
+                        onPressed: () {
+                          controller.addRuns(0, "0");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "W",
+                        onPressed: () {
+                          controller.addWicket();
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "WB",
+                        onPressed: () {
+                          controller.addRuns(1, "W");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "NB",
+                        onPressed: () {
+                          controller.addRuns(1, "1");
+                        },
+                      ),
+                      CustomRoundButton(
+                        text: "LB",
+                        onPressed: () {
+                          controller.addWicket();
+                        },
+                      ),
+                      Container(
+                        color: Colors.white,
+                        height: 50,
+                        width: 6,
+                      ),
+                      CustomSquareButton(text: "PP", onPressed: () {}),
+                      CustomSquareButton(text: "RO", onPressed: () {}),
+                      CustomSquareButton(text: "W", onPressed: () {}),
+                      CustomSquareButton(text: "C", onPressed: () {}),
+                      CustomSquareButton(text: "HW", onPressed: () {}),
+                      CustomSquareButton(text: "TO", onPressed: () {}),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -316,7 +409,7 @@ class ScoreboardScreen extends StatelessWidget {
           ),
           const SizedBox(height: SizeManager.sizeM),
           CustomButton(
-            color: ColorsManager.secondaryColor,
+            color: ColorsManager.primaryColor,
             onPressed: () {
               isBattingTeam
                   ? controller.updateBattingTeamName(
@@ -356,7 +449,7 @@ class ScoreboardScreen extends StatelessWidget {
           ),
           const SizedBox(height: SizeManager.sizeM),
           CustomButton(
-            color: ColorsManager.secondaryColor,
+            color: ColorsManager.primaryColor,
             onPressed: () {
               controller.updateBowler(controller.bowlerController.text.trim());
               Get.back();
@@ -395,7 +488,7 @@ class ScoreboardScreen extends StatelessWidget {
           ),
           const SizedBox(height: SizeManager.sizeM),
           CustomButton(
-            color: ColorsManager.secondaryColor,
+            color: ColorsManager.primaryColor,
             onPressed: () {
               number == "1"
                   ? controller.updateBatsman(
