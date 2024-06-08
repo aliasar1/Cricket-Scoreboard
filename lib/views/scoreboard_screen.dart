@@ -259,11 +259,66 @@ class ScoreboardScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    trailing: Txt(
-                                      text:
-                                          "${controller.scoreboard.value.currentBowler.runsConceded}-${controller.scoreboard.value.currentBowler.wicketsTaken} (${controller.scoreboard.value.currentBowler.overs}.${controller.scoreboard.value.currentBowler.balls})",
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.normal,
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        InkWell(
+                                          onTap: () => controller
+                                              .directlyDecBowlerConceededRuns(),
+                                          child: const SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => controller
+                                              .directlyIncBowlerConceededRuns(),
+                                          child: Txt(
+                                            text:
+                                                "${controller.scoreboard.value.currentBowler.runsConceded}-",
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => controller
+                                              .directlyIncBowlerWickets(),
+                                          child: Txt(
+                                            text:
+                                                "${controller.scoreboard.value.currentBowler.wicketsTaken} ",
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => controller
+                                              .directlyIncBowlerOverBalls(),
+                                          child: Txt(
+                                            text:
+                                                "(${controller.scoreboard.value.currentBowler.overs}",
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => controller
+                                              .directlyDecBowlerOverBalls(),
+                                          child: Txt(
+                                            text:
+                                                ".${controller.scoreboard.value.currentBowler.balls})",
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => controller
+                                              .directlyDecBowlerWickets(),
+                                          child: const SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -272,17 +327,17 @@ class ScoreboardScreen extends StatelessWidget {
                                         scrollDirection: Axis.horizontal,
                                         itemCount:
                                             controller.currentOverBalls.length >
-                                                    9
-                                                ? 9
+                                                    8
+                                                ? 8
                                                 : controller
                                                     .currentOverBalls.length,
                                         itemBuilder: (context, index) {
                                           int displayIndex = controller
                                                       .currentOverBalls.length >
-                                                  9
+                                                  8
                                               ? controller
                                                       .currentOverBalls.length -
-                                                  9 +
+                                                  8 +
                                                   index
                                               : index;
                                           String ball = controller

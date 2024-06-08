@@ -265,6 +265,61 @@ class ScoreController extends GetxController {
     });
   }
 
+  void directlyIncBowlerConceededRuns() {
+    scoreboard.update((sb) {
+      sb!.currentBowler.runsConceded++;
+    });
+  }
+
+  void directlyDecBowlerConceededRuns() {
+    scoreboard.update((sb) {
+      if (sb!.currentBowler.runsConceded > 0) {
+        sb.currentBowler.runsConceded--;
+      }
+    });
+  }
+
+  void directlyIncBowlerWickets() {
+    scoreboard.update((sb) {
+      if (sb!.currentBowler.wicketsTaken < 11) {
+        sb.currentBowler.wicketsTaken++;
+      }
+    });
+  }
+
+  void directlyDecBowlerWickets() {
+    scoreboard.update((sb) {
+      if (sb!.currentBowler.wicketsTaken > 0) {
+        sb.currentBowler.wicketsTaken--;
+      }
+    });
+  }
+
+  void directlyIncBowlerOverBalls() {
+    scoreboard.update((sb) {
+      if (sb!.currentBowler.balls < 5) {
+        sb.currentBowler.balls++;
+      } else {
+        sb.currentBowler.overs++;
+      }
+    });
+  }
+
+  void directlyDecBowlerOverBalls() {
+    scoreboard.update((sb) {
+      if (sb!.currentBowler.overs >= 0) {
+        if (sb.currentBowler.balls > 0) {
+          sb.currentBowler.balls--;
+        } else {
+          if (sb.currentBowler.overs > 0) {
+            sb.currentBowler.overs--;
+            sb.currentBowler.balls = 5;
+          }
+        }
+      }
+    });
+  }
+
   void updateCurrentOverAndBall(Scoreboard? sb) {
     var data = sb!.overs.toStringAsFixed(1).split(".");
     currentOver.value = int.parse(data[0]);
