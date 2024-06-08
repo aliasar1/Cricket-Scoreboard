@@ -1,10 +1,10 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:aagpl_scoreboard/models/players.dart';
-import 'package:aagpl_scoreboard/models/teams.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../data/players_data.dart';
+import '../data/teams_data.dart';
 import '../models/batsman.dart';
 import '../models/bowler.dart';
 import '../models/scoreboard.dart';
@@ -179,6 +179,30 @@ class ScoreController extends GetxController {
     });
   }
 
+  void directlyDecBallsFaced(bool isBatsman1) {
+    scoreboard.update((sb) {
+      sb?.decBallsFaced(isBatsman1);
+    });
+  }
+
+  void directlyIncBallsFaced(bool isBatsman1) {
+    scoreboard.update((sb) {
+      sb?.incBallsFaced(isBatsman1);
+    });
+  }
+
+  void directlyIncRunsBatsman(bool isBatsman1) {
+    scoreboard.update((sb) {
+      sb?.addRunsBatsman(isBatsman1);
+    });
+  }
+
+  void directlyDecRunsBatsman(bool isBatsman1) {
+    scoreboard.update((sb) {
+      sb?.decRunsBatsman(isBatsman1);
+    });
+  }
+
   void updateBattingTeamName(String name) {
     scoreboard.update((sb) {
       sb?.battingTeam = name;
@@ -221,11 +245,63 @@ class ScoreController extends GetxController {
     addBall(ballType);
   }
 
+  void directlyIncOver() {
+    scoreboard.update((sb) {
+      sb!.overs += 0.1;
+      if (sb.overs - sb.overs.truncate() >= 0.6) {
+        sb.overs = sb.overs.truncate() + 1;
+      }
+      updateCurrentOverAndBall(sb);
+    });
+  }
+
+  void directlyDecOver() {
+    scoreboard.update((sb) {
+      double decrementAmount = sb!.overs % 1 == 0 ? 0.5 : 0.1;
+      double newOvers = sb.overs - decrementAmount;
+      sb.overs = newOvers < 0 ? 0.0 : newOvers;
+
+      updateCurrentOverAndBall(sb);
+    });
+  }
+
+  void updateCurrentOverAndBall(Scoreboard? sb) {
+    var data = sb!.overs.toStringAsFixed(1).split(".");
+    currentOver.value = int.parse(data[0]);
+    currentBall.value = int.parse(data[1]);
+  }
+
+  void decWicketDirectly() {
+    scoreboard.update((sb) {
+      sb?.decWicketDirectly();
+    });
+  }
+
+  void incWicketDirectly() {
+    scoreboard.update((sb) {
+      sb?.incWicketDirectly();
+    });
+  }
+
   void incScoreBy1OnlyNoBallInc(String type) {
     scoreboard.update((sb) {
       sb?.addRunWithoutRotation(1);
     });
-    currentOverBalls.add(type);
+    if (type != "") {
+      currentOverBalls.add(type);
+    }
+  }
+
+  void incScoreOnly() {
+    scoreboard.update((sb) {
+      sb?.addRunOnly(1);
+    });
+  }
+
+  void decrementScore() {
+    scoreboard.update((sb) {
+      sb?.decrementRun();
+    });
   }
 
   void addWicket() {
@@ -298,7 +374,6 @@ class ScoreController extends GetxController {
 
     givenTargetController.text = scoreboard.value.target.toString();
 
-    totalOversController.clear();
     totalCurrentWicketsController.clear();
     currentRunsController.clear();
 

@@ -80,8 +80,18 @@ class ScoreboardScreen extends StatelessWidget {
                                       .scoreboard.value.batsman1.isOnStrike,
                                   name:
                                       controller.scoreboard.value.batsman1.name,
-                                  stats:
-                                      "${controller.scoreboard.value.batsman1.runs} (${controller.scoreboard.value.batsman1.ballsFaced})",
+                                  runs:
+                                      controller.scoreboard.value.batsman1.runs,
+                                  ballFaced: controller
+                                      .scoreboard.value.batsman1.ballsFaced,
+                                  onDecBallsPressed: () =>
+                                      controller.directlyDecBallsFaced(true),
+                                  onDecRunsPressed: () =>
+                                      controller.directlyDecRunsBatsman(true),
+                                  onIncBallsPressed: () =>
+                                      controller.directlyIncBallsFaced(true),
+                                  onIncRunsPressed: () =>
+                                      controller.directlyIncRunsBatsman(true),
                                 ),
                                 CustomListTile(
                                   onTogglerPressed: () =>
@@ -92,8 +102,18 @@ class ScoreboardScreen extends StatelessWidget {
                                       .scoreboard.value.batsman2.isOnStrike,
                                   name:
                                       controller.scoreboard.value.batsman2.name,
-                                  stats:
-                                      "${controller.scoreboard.value.batsman2.runs} (${controller.scoreboard.value.batsman2.ballsFaced})",
+                                  runs:
+                                      controller.scoreboard.value.batsman2.runs,
+                                  ballFaced: controller
+                                      .scoreboard.value.batsman2.ballsFaced,
+                                  onDecBallsPressed: () =>
+                                      controller.directlyDecBallsFaced(false),
+                                  onDecRunsPressed: () =>
+                                      controller.directlyDecRunsBatsman(false),
+                                  onIncBallsPressed: () =>
+                                      controller.directlyIncBallsFaced(false),
+                                  onIncRunsPressed: () =>
+                                      controller.directlyIncRunsBatsman(false),
                                 ),
                               ],
                             ),
@@ -127,7 +147,7 @@ class ScoreboardScreen extends StatelessWidget {
                                             children: [
                                               InkWell(
                                                 onTap: () {
-                                                  controller.addRuns(1, "1");
+                                                  controller.incScoreOnly();
                                                 },
                                                 child: Txt(
                                                   textAlign: TextAlign.end,
@@ -140,7 +160,8 @@ class ScoreboardScreen extends StatelessWidget {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  controller.addWicket();
+                                                  controller
+                                                      .incWicketDirectly();
                                                 },
                                                 child: Txt(
                                                   textAlign: TextAlign.end,
@@ -156,24 +177,47 @@ class ScoreboardScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 35),
-                                      Txt(
-                                        text:
-                                            "Over: ${controller.currentOver.value}.${controller.currentBall.value}",
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () =>
+                                                controller.directlyDecOver(),
+                                            child: const Txt(
+                                              text: "Over: ",
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () =>
+                                                controller.directlyIncOver(),
+                                            child: Txt(
+                                              text:
+                                                  "${controller.currentOver.value}.${controller.currentBall.value}",
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Txt(
-                                        text:
-                                            "${controller.scoreboard.value.battingTeam} ",
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                      InkWell(
+                                        onTap: () {
+                                          controller.decrementScore();
+                                        },
+                                        child: Txt(
+                                          text:
+                                              "${controller.scoreboard.value.battingTeam} ",
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       const Txt(
                                         text: "vs ",
@@ -182,12 +226,16 @@ class ScoreboardScreen extends StatelessWidget {
                                         color:
                                             Color.fromARGB(255, 202, 196, 196),
                                       ),
-                                      Txt(
-                                        text:
-                                            "${controller.scoreboard.value.bowlingTeam} ",
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                      InkWell(
+                                        onTap: () =>
+                                            controller.decWicketDirectly(),
+                                        child: Txt(
+                                          text:
+                                              "${controller.scoreboard.value.bowlingTeam} ",
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -239,13 +287,16 @@ class ScoreboardScreen extends StatelessWidget {
                                               : index;
                                           String ball = controller
                                               .currentOverBalls[displayIndex];
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: BallContainer(
-                                              type: ball,
-                                              size: 40,
-                                            ),
-                                          );
+                                          return ball == ""
+                                              ? Container()
+                                              : Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: BallContainer(
+                                                    type: ball,
+                                                    size: 40,
+                                                  ),
+                                                );
                                         },
                                       )),
                                 ),
@@ -346,7 +397,7 @@ class ScoreboardScreen extends StatelessWidget {
                       CustomRoundButton(
                         text: "NB",
                         onPressed: () {
-                          controller.addRuns(1, "1");
+                          controller.addRuns(1, "NB");
                         },
                       ),
                       CustomRoundButton(

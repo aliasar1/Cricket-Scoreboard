@@ -18,8 +18,20 @@ class Batsman {
     ballsFaced++;
   }
 
+  void addRunsDirectly() {
+    runs++;
+  }
+
+  void decRun() {
+    runs--;
+  }
+
   void addBall() {
     ballsFaced++;
+  }
+
+  void decBall() {
+    ballsFaced--;
   }
 
   void toggleStrike() {

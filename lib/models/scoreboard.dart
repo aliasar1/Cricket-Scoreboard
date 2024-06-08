@@ -48,10 +48,74 @@ class Scoreboard {
     }
   }
 
+  void directlyIncOver() {
+    overs = overs + 0.1;
+  }
+
+  void directlyDecOver() {
+    overs = overs - 0.1;
+  }
+
+  void decWicketDirectly() {
+    if (wickets > 0) {
+      wickets--;
+    }
+  }
+
+  void incWicketDirectly() {
+    if (wickets < 11) {
+      wickets++;
+    }
+  }
+
   void addRunWithoutRotation(int runs) {
     totalRuns += runs;
     currentBowler.addRun(runs);
     _updateBowlerStats(currentBowler, runs);
+  }
+
+  void addRunsBatsman(bool isBatsman1) {
+    if (isBatsman1) {
+      batsman1.addRunsDirectly();
+    } else {
+      batsman2.addRunsDirectly();
+    }
+  }
+
+  void decRunsBatsman(bool isBatsman1) {
+    if (isBatsman1) {
+      if (batsman1.runs > 0) {
+        batsman1.decRun();
+      }
+    } else {
+      if (batsman2.runs > 0) {
+        batsman2.decRun();
+      }
+    }
+  }
+
+  void incBallsFaced(bool isBatsman1) {
+    if (isBatsman1) {
+      batsman1.addBall();
+    } else {
+      batsman2.addBall();
+    }
+  }
+
+  void decBallsFaced(bool isBatsman1) {
+    if (isBatsman1) {
+      if (batsman1.ballsFaced > 0) {
+        batsman1.decBall();
+      }
+    } else {
+      if (batsman2.ballsFaced > 0) {
+        batsman2.decBall();
+      }
+    }
+  }
+
+  void addRunOnly(int runs) {
+    totalRuns += runs;
   }
 
   void addBall(String ballType) {
@@ -60,6 +124,12 @@ class Scoreboard {
     overs += 0.1;
     if (overs - overs.truncate() >= 0.6) {
       overs = overs.truncate() + 1;
+    }
+  }
+
+  void decrementRun() {
+    if (totalRuns > 0) {
+      totalRuns--;
     }
   }
 

@@ -4,17 +4,27 @@ import 'custom_text.dart';
 class CustomListTile extends StatelessWidget {
   final bool isOnStrike;
   final String name;
-  final String stats;
+  final int runs;
+  final int ballFaced;
   final VoidCallback onBatsmanPressed;
   final VoidCallback onTogglerPressed;
+  final VoidCallback onIncRunsPressed;
+  final VoidCallback onDecRunsPressed;
+  final VoidCallback onIncBallsPressed;
+  final VoidCallback onDecBallsPressed;
 
   const CustomListTile({
     Key? key,
     required this.isOnStrike,
     required this.name,
-    required this.stats,
+    required this.runs,
+    required this.ballFaced,
     required this.onBatsmanPressed,
     required this.onTogglerPressed,
+    required this.onIncRunsPressed,
+    required this.onDecRunsPressed,
+    required this.onIncBallsPressed,
+    required this.onDecBallsPressed,
   }) : super(key: key);
 
   @override
@@ -55,10 +65,45 @@ class CustomListTile extends StatelessWidget {
               ),
             ),
           ),
-          Txt(
-            text: stats,
-            fontSize: 30,
-            fontWeight: FontWeight.normal,
+          Row(
+            children: [
+              InkWell(
+                onTap: onDecRunsPressed,
+                child: const SizedBox(
+                  height: 40,
+                  width: 40,
+                ),
+              ),
+              InkWell(
+                onTap: onIncRunsPressed,
+                child: Text(
+                  "$runs",
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: onIncBallsPressed,
+                child: Text(
+                  " ($ballFaced)",
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: onDecBallsPressed,
+                child: const SizedBox(
+                  height: 40,
+                  width: 40,
+                ),
+              ),
+            ],
           ),
         ],
       ),
