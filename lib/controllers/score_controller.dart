@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,12 +28,16 @@ class ScoreController extends GetxController {
   RxInt initScore = 0.obs;
   RxInt initWickets = 0.obs;
   var currentOverBalls = <String>[].obs;
+  RxBool isTargetSet = false.obs;
+  RxBool isWinningCardUp = false.obs;
+  RxString winningTeam = "".obs;
 
   var batsman1 = Batsman(name: '').obs;
   var batsman2 = Batsman(name: '').obs;
   var currentBowler = Bowler(name: '').obs;
   var lastBowler = Bowler(name: '').obs;
   var scoreboard = Scoreboard(
+    totalOvers: 0.0,
     battingTeam: '',
     bowlingTeam: '',
     batsman1: Batsman(name: ''),
@@ -76,6 +82,88 @@ class ScoreController extends GetxController {
   RxInt currentBatsman1Index = 0.obs;
   RxInt currentBatsman2Index = 1.obs;
   RxInt currentBowlerIndex = 0.obs;
+
+  // CARDS ACTIONS
+  RxBool isFourPressed = false.obs;
+  RxBool isSixPressed = false.obs;
+  RxBool isWicketPressed = false.obs;
+  RxBool isNoBallPressed = false.obs;
+  RxBool isLBWPressed = false.obs;
+  RxBool isCatchPressed = false.obs;
+  RxBool isPPPressed = false.obs;
+  RxBool isROPressed = false.obs;
+  RxBool isHWPressed = false.obs;
+  RxBool isTOPressed = false.obs;
+
+  void onFourPressed() {
+    isFourPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isFourPressed.value = false;
+    });
+  }
+
+  void onSixPressed() {
+    isSixPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isSixPressed.value = false;
+    });
+  }
+
+  void onWicketPressed() {
+    isWicketPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isWicketPressed.value = false;
+    });
+  }
+
+  void onNoBallPressed() {
+    isNoBallPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isNoBallPressed.value = false;
+    });
+  }
+
+  void onLBWPressed() {
+    isLBWPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isLBWPressed.value = false;
+    });
+  }
+
+  void onCatchPressed() {
+    isCatchPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isCatchPressed.value = false;
+    });
+  }
+
+  void onPPPressed() {
+    isPPPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isPPPressed.value = false;
+    });
+  }
+
+  void onROPressed() {
+    isROPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isROPressed.value = false;
+    });
+  }
+
+  void onHWPressed() {
+    isHWPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isHWPressed.value = false;
+    });
+  }
+
+  void onTOPressed() {
+    isTOPressed.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isTOPressed.value = false;
+    });
+  }
 
   void nextBatsman1() {
     if (battingTeamId.value == null) return;
@@ -384,6 +472,61 @@ class ScoreController extends GetxController {
       rotateStrike();
       currentOverBalls.assignAll([]);
     }
+    if (isTargetSet.isFalse) {
+      if ((scoreboard.value.overs >= scoreboard.value.totalOvers) ||
+          (scoreboard.value.wickets > 10)) {
+        scoreboard.value.target = scoreboard.value.totalRuns + 1;
+        isTargetSet.value = true;
+
+        int temp = battingTeamId.value!;
+        battingTeamId.value = bowlingTeamId.value;
+        bowlingTeamId.value = temp;
+
+        var battingTeam =
+            teams.firstWhereOrNull((team) => team['id'] == battingTeamId.value);
+        battingTeamController.text = battingTeam!['name'];
+        var bowlingTeam =
+            teams.firstWhereOrNull((team) => team['id'] == bowlingTeamId.value);
+        bowlingTeamController.text = bowlingTeam!['name'];
+
+        nextBatsman1();
+        nextBatsman2();
+        nextBowler();
+
+        currentBall.value = 0;
+        currentOver.value = 0;
+
+        scoreboard.update((sb) {
+          sb?.battingTeam = battingTeamController.text;
+          sb?.bowlingTeam = bowlingTeamController.text;
+          sb?.totalRuns = 0;
+          sb?.wickets = 0;
+          sb?.overs = 0.0;
+        });
+        String tempTeam = scoreboard.value.battingTeam;
+        scoreboard.value.battingTeam = scoreboard.value.bowlingTeam;
+        scoreboard.value.bowlingTeam = tempTeam;
+      }
+    } else {
+      String? winner = checkWinningPossibility(scoreboard.value);
+      if (winner != null) {
+        isTargetSet.value = false;
+        isWinningCardUp.value = true;
+        winningTeam.value = winner;
+      }
+    }
+  }
+
+  String? checkWinningPossibility(Scoreboard scoreboard) {
+    if (scoreboard.totalRuns >= scoreboard.target) {
+      return scoreboard.battingTeam;
+    } else if (scoreboard.wickets >= 10) {
+      return scoreboard.bowlingTeam;
+    } else if (scoreboard.overs >= scoreboard.totalOvers) {
+      return scoreboard.bowlingTeam;
+    } else {
+      return null;
+    }
   }
 
   void setupBoard() {
@@ -432,13 +575,13 @@ class ScoreController extends GetxController {
     totalCurrentWicketsController.clear();
     currentRunsController.clear();
 
-    // Update scoreboard values
     scoreboard.update((sb) {
       sb?.battingTeam = battingTeamController.text;
       sb?.bowlingTeam = bowlingTeamController.text;
       sb?.batsman1 = Batsman(name: batsman1Controller.text, isOnStrike: true);
       sb?.batsman2 = Batsman(name: batsman2Controller.text);
       sb?.currentBowler = Bowler(name: bowlerController.text);
+      sb?.totalOvers = double.parse(totalOversController.text);
       sb?.target = int.tryParse(givenTargetController.text) ?? 0;
     });
 
@@ -459,6 +602,7 @@ class ScoreController extends GetxController {
     scoreboard.value = Scoreboard(
       battingTeam: '',
       bowlingTeam: '',
+      totalOvers: 0.0,
       batsman1: Batsman(name: ''),
       batsman2: Batsman(name: ''),
       currentBowler: Bowler(name: ''),

@@ -6,6 +6,7 @@ import 'bowler.dart';
 class Scoreboard {
   String battingTeam;
   String bowlingTeam;
+  double totalOvers;
   int totalRuns;
   int wickets;
   double overs;
@@ -19,6 +20,7 @@ class Scoreboard {
   Scoreboard({
     required this.battingTeam,
     required this.bowlingTeam,
+    required this.totalOvers,
     this.totalRuns = 0,
     this.wickets = 0,
     this.overs = 0.0,
@@ -218,6 +220,7 @@ class Scoreboard {
         batsmen.map((batsman) => batsman.toMap()).toList();
     return <String, dynamic>{
       'battingTeam': battingTeam,
+      'totalOvers': totalOvers,
       'bowlingTeam': bowlingTeam,
       'totalRuns': totalRuns,
       'wickets': wickets,
@@ -240,6 +243,7 @@ class Scoreboard {
       totalRuns: map['totalRuns'] as int,
       wickets: map['wickets'] as int,
       overs: map['overs'] as double,
+      totalOvers: map['totalOvers'] as double,
       target: map['target'] as int,
       batsman1: Batsman.fromMap(map['batsman1'] as Map<String, dynamic>),
       batsman2: Batsman.fromMap(map['batsman2'] as Map<String, dynamic>),
