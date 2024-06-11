@@ -44,7 +44,6 @@ class Scoreboard {
     }
     currentBowler.addRun(runs);
     _updateBowlerStats(currentBowler, runs);
-
     if (runs % 2 != 0) {
       toggleStrike();
     }
@@ -147,8 +146,8 @@ class Scoreboard {
   }
 
   void toggleStrike() {
-    batsman1.toggleStrike();
     batsman2.toggleStrike();
+    batsman1.toggleStrike();
   }
 
   void _updateBatsmanStats(Batsman batsman, int runs) {

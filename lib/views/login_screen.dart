@@ -38,7 +38,7 @@ class AdminLoginScreen extends StatelessWidget {
                   ),
                 ),
                 const Txt(
-                  text: "AAGPL LOGIN SCREEN",
+                  text: "AAGPL LOGIN",
                   fontSize: 46,
                   fontWeight: FontWeight.bold,
                   color: ColorsManager.primaryColor,
@@ -73,7 +73,7 @@ class AdminLoginScreen extends StatelessWidget {
                         },
                       ),
                       const SizedBox(
-                        height: SizeManager.sizeM,
+                        height: SizeManager.sizeM * 1.5,
                       ),
                       Obx(
                         () => CustomTextFormField(
@@ -97,7 +97,7 @@ class AdminLoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: SizeManager.sizeM,
+                        height: SizeManager.sizeM * 2,
                       ),
                       Obx(
                         () => CustomButton(

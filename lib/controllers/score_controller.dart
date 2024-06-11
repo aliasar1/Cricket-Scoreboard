@@ -23,6 +23,8 @@ class ScoreController extends GetxController {
       TextEditingController();
   final TextEditingController currentRunsController = TextEditingController();
 
+  final boardFormKey = GlobalKey<FormState>();
+
   var currentOver = 0.obs;
   var currentBall = 0.obs;
   RxInt initScore = 0.obs;
@@ -253,10 +255,12 @@ class ScoreController extends GetxController {
     if (num == "1") {
       scoreboard.update((sb) {
         sb?.batsman1 = Batsman(name: name, isOnStrike: true);
+        sb?.batsman2.isOnStrike = false;
       });
     } else {
       scoreboard.update((sb) {
-        sb?.batsman2 = Batsman(name: name);
+        sb?.batsman2 = Batsman(name: name, isOnStrike: true);
+        sb?.batsman1.isOnStrike = false;
       });
     }
   }
@@ -483,10 +487,10 @@ class ScoreController extends GetxController {
         bowlingTeamId.value = temp;
 
         var battingTeam =
-            teams.firstWhereOrNull((team) => team['id'] == battingTeamId.value);
+            teams.firstWhereOrNull((team) => team['id'] == bowlingTeamId.value);
         battingTeamController.text = battingTeam!['name'];
         var bowlingTeam =
-            teams.firstWhereOrNull((team) => team['id'] == bowlingTeamId.value);
+            teams.firstWhereOrNull((team) => team['id'] == battingTeamId.value);
         bowlingTeamController.text = bowlingTeam!['name'];
 
         nextBatsman1();
@@ -498,6 +502,7 @@ class ScoreController extends GetxController {
 
         scoreboard.update((sb) {
           sb?.battingTeam = battingTeamController.text;
+          sb?.batsman2.isOnStrike = false;
           sb?.bowlingTeam = bowlingTeamController.text;
           sb?.totalRuns = 0;
           sb?.wickets = 0;
@@ -530,62 +535,66 @@ class ScoreController extends GetxController {
   }
 
   void setupBoard() {
-    var battingTeam =
-        teams.firstWhereOrNull((team) => team['id'] == battingTeamId.value);
-    if (battingTeam != null) {
-      battingTeamController.text = battingTeam['name'];
-    } else {
-      battingTeamController.clear();
+    if (boardFormKey.currentState!.validate()) {
+      boardFormKey.currentState!.save();
+
+      var battingTeam =
+          teams.firstWhereOrNull((team) => team['id'] == battingTeamId.value);
+      if (battingTeam != null) {
+        battingTeamController.text = battingTeam['name'];
+      } else {
+        battingTeamController.clear();
+      }
+
+      var bowlingTeam =
+          teams.firstWhereOrNull((team) => team['id'] == bowlingTeamId.value);
+      if (bowlingTeam != null) {
+        bowlingTeamController.text = bowlingTeam['name'];
+      } else {
+        bowlingTeamController.clear();
+      }
+
+      var batsman1 = battingTeamPlayers
+          .firstWhereOrNull((player) => player['id'] == batsman1Id.value);
+      if (batsman1 != null) {
+        batsman1Controller.text = batsman1['name'];
+      } else {
+        batsman1Controller.clear();
+      }
+
+      var batsman2 = battingTeamPlayers
+          .firstWhereOrNull((player) => player['id'] == batsman2Id.value);
+      if (batsman2 != null) {
+        batsman2Controller.text = batsman2['name'];
+      } else {
+        batsman2Controller.clear();
+      }
+
+      var bowler = bowlingTeamPlayers
+          .firstWhereOrNull((player) => player['id'] == bowlerId.value);
+      if (bowler != null) {
+        bowlerController.text = bowler['name'];
+      } else {
+        bowlerController.clear();
+      }
+
+      givenTargetController.text = scoreboard.value.target.toString();
+
+      totalCurrentWicketsController.clear();
+      currentRunsController.clear();
+
+      scoreboard.update((sb) {
+        sb?.battingTeam = battingTeamController.text;
+        sb?.bowlingTeam = bowlingTeamController.text;
+        sb?.batsman1 = Batsman(name: batsman1Controller.text, isOnStrike: true);
+        sb?.batsman2 = Batsman(name: batsman2Controller.text);
+        sb?.currentBowler = Bowler(name: bowlerController.text);
+        sb?.totalOvers = double.parse(totalOversController.text);
+        sb?.target = int.tryParse(givenTargetController.text) ?? 0;
+      });
+
+      lastBowler.value = Bowler(name: '');
     }
-
-    var bowlingTeam =
-        teams.firstWhereOrNull((team) => team['id'] == bowlingTeamId.value);
-    if (bowlingTeam != null) {
-      bowlingTeamController.text = bowlingTeam['name'];
-    } else {
-      bowlingTeamController.clear();
-    }
-
-    var batsman1 = battingTeamPlayers
-        .firstWhereOrNull((player) => player['id'] == batsman1Id.value);
-    if (batsman1 != null) {
-      batsman1Controller.text = batsman1['name'];
-    } else {
-      batsman1Controller.clear();
-    }
-
-    var batsman2 = battingTeamPlayers
-        .firstWhereOrNull((player) => player['id'] == batsman2Id.value);
-    if (batsman2 != null) {
-      batsman2Controller.text = batsman2['name'];
-    } else {
-      batsman2Controller.clear();
-    }
-
-    var bowler = bowlingTeamPlayers
-        .firstWhereOrNull((player) => player['id'] == bowlerId.value);
-    if (bowler != null) {
-      bowlerController.text = bowler['name'];
-    } else {
-      bowlerController.clear();
-    }
-
-    givenTargetController.text = scoreboard.value.target.toString();
-
-    totalCurrentWicketsController.clear();
-    currentRunsController.clear();
-
-    scoreboard.update((sb) {
-      sb?.battingTeam = battingTeamController.text;
-      sb?.bowlingTeam = bowlingTeamController.text;
-      sb?.batsman1 = Batsman(name: batsman1Controller.text, isOnStrike: true);
-      sb?.batsman2 = Batsman(name: batsman2Controller.text);
-      sb?.currentBowler = Bowler(name: bowlerController.text);
-      sb?.totalOvers = double.parse(totalOversController.text);
-      sb?.target = int.tryParse(givenTargetController.text) ?? 0;
-    });
-
-    lastBowler.value = Bowler(name: '');
   }
 
   void clearBoard() {

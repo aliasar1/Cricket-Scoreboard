@@ -128,7 +128,7 @@ class ScoreboardScreen extends StatelessWidget {
               controller.isWinningCardUp.value
                   ? Container(
                       height: 250,
-                      width: 500,
+                      width: 600,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [
