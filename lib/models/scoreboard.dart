@@ -43,7 +43,6 @@ class Scoreboard {
       _updateBatsmanStats(batsman2, runs);
     }
     currentBowler.addRun(runs);
-    _updateBowlerStats(currentBowler, runs);
     if (runs % 2 != 0) {
       toggleStrike();
     }
@@ -119,13 +118,13 @@ class Scoreboard {
     totalRuns += runs;
   }
 
-  void addBall(String ballType) {
+  void addBall(String ballType, int runs) {
     currentBowler.addBall();
-    _updateBowlerStats(currentBowler, ballType);
     overs += 0.1;
     if (overs - overs.truncate() >= 0.6) {
       overs = overs.truncate() + 1;
     }
+    _updateBowlerStats(currentBowler, runs);
   }
 
   void decrementRun() {
@@ -171,11 +170,20 @@ class Scoreboard {
       if (bowlers[i].name.toLowerCase() == bowler.name.toLowerCase()) {
         if (ballType is int) {
           bowlers[i].addRun(ballType);
+        } else {
+          if (ballType == 'W') {
+            bowlers[i].addWicket();
+          }
         }
+
+        bowlers[i].overs = bowler.overs;
+        bowlers[i].balls = bowler.balls;
+
         found = true;
         break;
       }
     }
+
     if (!found) {
       if (ballType is int) {
         bowlers.add(Bowler(
@@ -184,13 +192,13 @@ class Scoreboard {
             overs: 0,
             balls: 1,
             wicketsTaken: 0));
-      } else {
+      } else if (ballType == 'W') {
         bowlers.add(Bowler(
             name: bowler.name,
             runsConceded: 0,
-            overs: 1,
-            balls: 0,
-            wicketsTaken: 0));
+            overs: 0,
+            balls: 1,
+            wicketsTaken: 1));
       }
     }
   }

@@ -96,75 +96,109 @@ class ScoreController extends GetxController {
   RxBool isROPressed = false.obs;
   RxBool isHWPressed = false.obs;
   RxBool isTOPressed = false.obs;
+  RxBool isAnyCardsUp = false.obs;
 
   void onFourPressed() {
     isFourPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isFourPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onSixPressed() {
     isSixPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isSixPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onWicketPressed() {
     isWicketPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isWicketPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onNoBallPressed() {
     isNoBallPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isNoBallPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onLBWPressed() {
     isLBWPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isLBWPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onCatchPressed() {
     isCatchPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isCatchPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onPPPressed() {
     isPPPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isPPPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onROPressed() {
     isROPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isROPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onHWPressed() {
     isHWPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isHWPressed.value = false;
+      _checkAnyCardsUp();
     });
   }
 
   void onTOPressed() {
     isTOPressed.value = true;
+    isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isTOPressed.value = false;
+      _checkAnyCardsUp();
     });
+  }
+
+  void _checkAnyCardsUp() {
+    isAnyCardsUp.value = isFourPressed.value ||
+        isSixPressed.value ||
+        isWicketPressed.value ||
+        isNoBallPressed.value ||
+        isLBWPressed.value ||
+        isCatchPressed.value ||
+        isPPPressed.value ||
+        isROPressed.value ||
+        isHWPressed.value ||
+        isTOPressed.value;
   }
 
   void nextBatsman1() {
@@ -252,16 +286,33 @@ class ScoreController extends GetxController {
   }
 
   void updateBatsman(String name, String num) {
-    if (num == "1") {
-      scoreboard.update((sb) {
-        sb?.batsman1 = Batsman(name: name, isOnStrike: true);
-        sb?.batsman2.isOnStrike = false;
-      });
+    Batsman? existingBatsman = batsmen.firstWhereOrNull(
+        (batsmen) => batsmen.name.toLowerCase() == name.toLowerCase());
+    if (existingBatsman != null) {
+      if (num == "1") {
+        scoreboard.update((sb) {
+          sb?.batsman1 = existingBatsman;
+          sb?.batsman2.isOnStrike = false;
+        });
+      } else {
+        scoreboard.update((sb) {
+          sb?.batsman2 = existingBatsman;
+          sb?.batsman1.isOnStrike = false;
+        });
+      }
     } else {
-      scoreboard.update((sb) {
-        sb?.batsman2 = Batsman(name: name, isOnStrike: true);
-        sb?.batsman1.isOnStrike = false;
-      });
+      if (num == "1") {
+        scoreboard.update((sb) {
+          sb?.batsman1 = Batsman(name: name, isOnStrike: true);
+          sb?.batsman2.isOnStrike = false;
+        });
+      } else {
+        scoreboard.update((sb) {
+          sb?.batsman2 = Batsman(name: name, isOnStrike: true);
+          sb?.batsman1.isOnStrike = false;
+        });
+      }
+      batsmen.add(Batsman(name: name));
     }
   }
 
@@ -334,7 +385,7 @@ class ScoreController extends GetxController {
       sb?.addRuns(runs);
     });
 
-    addBall(ballType);
+    addBall(ballType, runs);
   }
 
   void directlyIncOver() {
@@ -455,12 +506,12 @@ class ScoreController extends GetxController {
     scoreboard.update((sb) {
       sb?.addWicket();
     });
-    addBall('W');
+    addBall('W', 0);
   }
 
-  void addBall(String ballType) {
+  void addBall(String ballType, int runs) {
     scoreboard.update((sb) {
-      sb?.addBall(ballType);
+      sb?.addBall(ballType, runs);
     });
     currentOverBalls.add(ballType);
     incrementBall();

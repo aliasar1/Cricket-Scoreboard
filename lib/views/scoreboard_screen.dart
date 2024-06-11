@@ -81,7 +81,8 @@ class ScoreboardScreen extends StatelessWidget {
                       imageUrl: 'assets/images/wicket.jpg',
                     )
                   : Container(),
-              controller.isTargetSet.value
+              Obx(() => controller.isTargetSet.value &&
+                      controller.isAnyCardsUp.isFalse
                   ? Container(
                       height: 250,
                       width: 350,
@@ -124,8 +125,9 @@ class ScoreboardScreen extends StatelessWidget {
                         ],
                       ),
                     )
-                  : Container(),
-              controller.isWinningCardUp.value
+                  : Container()),
+              controller.isWinningCardUp.value &&
+                      controller.isAnyCardsUp.isFalse
                   ? Container(
                       height: 250,
                       width: 600,
@@ -212,53 +214,55 @@ class ScoreboardScreen extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: 550,
-                                child: Column(
-                                  children: [
-                                    CustomListTile(
-                                      onTogglerPressed: () =>
-                                          controller.rotateStrike(),
-                                      onBatsmanPressed: () =>
-                                          controller.nextBatsman1(),
-                                      isOnStrike: controller
-                                          .scoreboard.value.batsman1.isOnStrike,
-                                      name: controller
-                                          .scoreboard.value.batsman1.name,
-                                      runs: controller
-                                          .scoreboard.value.batsman1.runs,
-                                      ballFaced: controller
-                                          .scoreboard.value.batsman1.ballsFaced,
-                                      onDecBallsPressed: () => controller
-                                          .directlyDecBallsFaced(true),
-                                      onDecRunsPressed: () => controller
-                                          .directlyDecRunsBatsman(true),
-                                      onIncBallsPressed: () => controller
-                                          .directlyIncBallsFaced(true),
-                                      onIncRunsPressed: () => controller
-                                          .directlyIncRunsBatsman(true),
-                                    ),
-                                    CustomListTile(
-                                      onTogglerPressed: () =>
-                                          controller.rotateStrike(),
-                                      onBatsmanPressed: () =>
-                                          controller.nextBatsman2(),
-                                      isOnStrike: controller
-                                          .scoreboard.value.batsman2.isOnStrike,
-                                      name: controller
-                                          .scoreboard.value.batsman2.name,
-                                      runs: controller
-                                          .scoreboard.value.batsman2.runs,
-                                      ballFaced: controller
-                                          .scoreboard.value.batsman2.ballsFaced,
-                                      onDecBallsPressed: () => controller
-                                          .directlyDecBallsFaced(false),
-                                      onDecRunsPressed: () => controller
-                                          .directlyDecRunsBatsman(false),
-                                      onIncBallsPressed: () => controller
-                                          .directlyIncBallsFaced(false),
-                                      onIncRunsPressed: () => controller
-                                          .directlyIncRunsBatsman(false),
-                                    ),
-                                  ],
+                                child: Obx(
+                                  () => Column(
+                                    children: [
+                                      CustomListTile(
+                                        onTogglerPressed: () =>
+                                            controller.rotateStrike(),
+                                        onBatsmanPressed: () =>
+                                            controller.nextBatsman1(),
+                                        isOnStrike: controller.scoreboard.value
+                                            .batsman1.isOnStrike,
+                                        name: controller
+                                            .scoreboard.value.batsman1.name,
+                                        runs: controller
+                                            .scoreboard.value.batsman1.runs,
+                                        ballFaced: controller.scoreboard.value
+                                            .batsman1.ballsFaced,
+                                        onDecBallsPressed: () => controller
+                                            .directlyDecBallsFaced(true),
+                                        onDecRunsPressed: () => controller
+                                            .directlyDecRunsBatsman(true),
+                                        onIncBallsPressed: () => controller
+                                            .directlyIncBallsFaced(true),
+                                        onIncRunsPressed: () => controller
+                                            .directlyIncRunsBatsman(true),
+                                      ),
+                                      CustomListTile(
+                                        onTogglerPressed: () =>
+                                            controller.rotateStrike(),
+                                        onBatsmanPressed: () =>
+                                            controller.nextBatsman2(),
+                                        isOnStrike: controller.scoreboard.value
+                                            .batsman2.isOnStrike,
+                                        name: controller
+                                            .scoreboard.value.batsman2.name,
+                                        runs: controller
+                                            .scoreboard.value.batsman2.runs,
+                                        ballFaced: controller.scoreboard.value
+                                            .batsman2.ballsFaced,
+                                        onDecBallsPressed: () => controller
+                                            .directlyDecBallsFaced(false),
+                                        onDecRunsPressed: () => controller
+                                            .directlyDecRunsBatsman(false),
+                                        onIncBallsPressed: () => controller
+                                            .directlyIncBallsFaced(false),
+                                        onIncRunsPressed: () => controller
+                                            .directlyIncRunsBatsman(false),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 25),
