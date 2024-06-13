@@ -30,7 +30,7 @@ class SetupScoreboardScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.blockSizeHorizontal! * 5,
+                  horizontal: SizeConfig.blockSizeHorizontal! * 2,
                   vertical: SizeConfig.blockSizeVertical! * 2,
                 ),
                 child: Column(
@@ -63,7 +63,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomDropdownFormField<int>(
                             labelText: "Batting Team",
@@ -86,7 +86,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomDropdownFormField<int>(
                             labelText: "Bowling Team",
@@ -109,7 +109,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomDropdownFormField<int>(
                             labelText: "Batsman 1",
@@ -133,7 +133,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomDropdownFormField<int>(
                             labelText: "Batsman 2",
@@ -157,7 +157,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomDropdownFormField<int>(
                             labelText: "Bowler",
@@ -181,7 +181,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomTextFormField(
                             controller: scoreController.totalOversController,
@@ -198,7 +198,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical! * 1,
+                            height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomButton(
                             color: ColorsManager.primaryColor,
