@@ -13,8 +13,12 @@ class BallContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      height: SizeConfig.blockSizeVertical! * 4.5,
-      width: SizeConfig.blockSizeVertical! * 4.5,
+      height: SizeConfig.blockSizeVertical! * 4,
+      width: SizeConfig.blockSizeVertical! * 4,
+      margin: EdgeInsets.only(
+        right: SizeConfig.blockSizeVertical! * 1.5,
+        bottom: SizeConfig.blockSizeVertical! * 0.5,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
@@ -28,7 +32,7 @@ class BallContainer extends StatelessWidget {
           type.toString(),
           style: TextStyle(
             color: Colors.black,
-            fontSize: SizeConfig.blockSizeVertical! * 1.5,
+            fontSize: SizeConfig.blockSizeVertical! * 2,
             fontWeight: FontWeight.bold,
           ),
         ),

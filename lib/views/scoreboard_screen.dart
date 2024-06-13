@@ -556,13 +556,8 @@ class ScoreboardScreen extends StatelessWidget {
                                                       displayIndex];
                                               return ball == ""
                                                   ? Container()
-                                                  : Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: BallContainer(
-                                                        type: ball,
-                                                      ),
+                                                  : BallContainer(
+                                                      type: ball,
                                                     );
                                             },
                                           )),
