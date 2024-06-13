@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import '../utils/size_config.dart';
 
 class BallContainer extends StatelessWidget {
-  final double size;
   final String type;
 
   const BallContainer({
     super.key,
-    required this.size,
     required this.type,
   });
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
-      height: size,
-      width: size,
+      height: SizeConfig.blockSizeVertical! * 4.5,
+      width: SizeConfig.blockSizeVertical! * 4.5,
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
@@ -28,7 +28,7 @@ class BallContainer extends StatelessWidget {
           type.toString(),
           style: TextStyle(
             color: Colors.black,
-            fontSize: size / 2.5,
+            fontSize: SizeConfig.blockSizeVertical! * 1.5,
             fontWeight: FontWeight.bold,
           ),
         ),
