@@ -48,6 +48,16 @@ class Scoreboard {
     }
   }
 
+  void addOneRun() {
+    totalRuns++;
+    currentBowler.addRun(1);
+  }
+
+  void add2DRun() {
+    totalRuns = totalRuns + 2;
+    currentBowler.addRun(2);
+  }
+
   void directlyIncOver() {
     overs = overs + 0.1;
   }

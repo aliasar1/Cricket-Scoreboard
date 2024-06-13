@@ -11,13 +11,14 @@ import '../widgets/custom/custom_squared_button.dart';
 import '../widgets/custom/custom_text.dart';
 import '../widgets/custom/custom_tile.dart';
 import '../widgets/gradient_round_container.dart';
-import '../widgets/image_container.dart';
+import '../widgets/text_container.dart';
 
 class ScoreboardScreen extends StatelessWidget {
   ScoreboardScreen({Key? key}) : super(key: key);
   static const String routeName = '/ScoreboardScreen';
 
-  final ScoreController controller = Get.find<ScoreController>();
+  // final ScoreController controller = Get.find<ScoreController>();
+  final ScoreController controller = Get.put(ScoreController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,58 +38,58 @@ class ScoreboardScreen extends StatelessWidget {
                 height: SizeConfig.blockSizeVertical! * 4,
               ),
               controller.isCatchPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/catch.jpg',
+                  ? const TextContainer(
+                      text: 'CATCH OUT',
                     )
                   : Container(),
               controller.isFourPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/four.jpeg',
+                  ? const TextContainer(
+                      text: '4 RUNS',
                     )
                   : Container(),
               controller.isHWPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/hitwicket.jpg',
+                  ? const TextContainer(
+                      text: 'HIT WICKET',
                     )
                   : Container(),
               controller.isNoBallPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/noball.jpg',
+                  ? const TextContainer(
+                      text: 'NO BALL',
                     )
                   : Container(),
               controller.isPPPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/pp.jpg',
+                  ? const TextContainer(
+                      text: 'POWER PLAY',
                     )
                   : Container(),
               controller.isWideBallPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/wide.jpg',
+                  ? const TextContainer(
+                      text: 'Wide Ball',
                     )
                   : Container(),
               controller.isLBWPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/lbw.jpg',
+                  ? const TextContainer(
+                      text: 'LBW',
                     )
                   : Container(),
               controller.isROPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/runout.jpg',
+                  ? const TextContainer(
+                      text: 'RUN OUT',
                     )
                   : Container(),
               controller.isSixPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/six.jpg',
+                  ? const TextContainer(
+                      text: '6 RUNS',
                     )
                   : Container(),
               controller.isTOPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/to.jpg',
+                  ? const TextContainer(
+                      text: 'TIME OUT',
                     )
                   : Container(),
               controller.isWicketPressed.value
-                  ? const ImageContainer(
-                      imageUrl: 'assets/images/wicket.jpg',
+                  ? const TextContainer(
+                      text: 'WICKET',
                     )
                   : Container(),
               Obx(() => controller.isTargetSet.value &&
@@ -448,7 +449,7 @@ class ScoreboardScreen extends StatelessWidget {
                                                 .currentBowler.name,
                                             fontSize:
                                                 SizeConfig.blockSizeVertical! *
-                                                    3,
+                                                    2.8,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -461,10 +462,10 @@ class ScoreboardScreen extends StatelessWidget {
                                               child: SizedBox(
                                                 height: SizeConfig
                                                         .blockSizeVertical! *
-                                                    2,
+                                                    3,
                                                 width: SizeConfig
                                                         .blockSizeVertical! *
-                                                    2,
+                                                    3,
                                               ),
                                             ),
                                             InkWell(
@@ -521,10 +522,10 @@ class ScoreboardScreen extends StatelessWidget {
                                               child: SizedBox(
                                                 height: SizeConfig
                                                         .blockSizeVertical! *
-                                                    2,
+                                                    3,
                                                 width: SizeConfig
                                                         .blockSizeVertical! *
-                                                    2,
+                                                    3,
                                               ),
                                             ),
                                           ],
@@ -693,6 +694,18 @@ class ScoreboardScreen extends StatelessWidget {
                             onPressed: () {
                               controller.addWicket();
                               controller.onROPressed();
+                            },
+                          ),
+                          CustomRoundButton(
+                            text: "+1",
+                            onPressed: () {
+                              controller.addOneRun();
+                            },
+                          ),
+                          CustomRoundButton(
+                            text: "2D",
+                            onPressed: () {
+                              controller.add2DRuns();
                             },
                           ),
                           Container(

@@ -399,6 +399,18 @@ class ScoreController extends GetxController {
     addBall(ballType, runs);
   }
 
+  void addOneRun() {
+    scoreboard.update((sb) {
+      sb?.addOneRun();
+    });
+  }
+
+  void add2DRuns() {
+    scoreboard.update((sb) {
+      sb?.add2DRun();
+    });
+  }
+
   void directlyIncOver() {
     scoreboard.update((sb) {
       sb!.overs += 0.1;

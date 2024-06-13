@@ -74,8 +74,8 @@ class CustomListTile extends StatelessWidget {
               InkWell(
                 onTap: onDecRunsPressed,
                 child: SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 2,
-                  width: SizeConfig.blockSizeVertical! * 2,
+                  height: SizeConfig.blockSizeVertical! * 3,
+                  width: SizeConfig.blockSizeVertical! * 3,
                 ),
               ),
               InkWell(
@@ -103,8 +103,8 @@ class CustomListTile extends StatelessWidget {
               InkWell(
                 onTap: onDecBallsPressed,
                 child: SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 2,
-                  width: SizeConfig.blockSizeVertical! * 2,
+                  height: SizeConfig.blockSizeVertical! * 3,
+                  width: SizeConfig.blockSizeVertical! * 3,
                 ),
               ),
             ],

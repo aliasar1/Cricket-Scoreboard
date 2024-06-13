@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import '../constants/colors.dart';
 import '../utils/size_config.dart';
+import 'custom/custom_text.dart';
 
-class ImageContainer extends StatelessWidget {
-  final String imageUrl;
+class TextContainer extends StatelessWidget {
+  final String text;
 
-  const ImageContainer({
+  const TextContainer({
     Key? key,
-    required this.imageUrl,
+    required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      height: SizeConfig.safeBlockVertical! * 40,
-      width: SizeConfig.safeBlockHorizontal! * 40,
+      height: SizeConfig.safeBlockVertical! * 20,
+      width: SizeConfig.safeBlockHorizontal! * 30,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -34,11 +36,13 @@ class ImageContainer extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Image.asset(
-          imageUrl,
-          fit: BoxFit.cover,
+      child: Center(
+        child: Txt(
+          textAlign: TextAlign.center,
+          text: text.toString(),
+          fontSize: SizeConfig.safeBlockVertical! * 8,
+          color: ColorsManager.primaryColor,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
