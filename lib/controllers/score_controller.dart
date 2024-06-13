@@ -405,6 +405,18 @@ class ScoreController extends GetxController {
     });
   }
 
+  void directlyIncTarget() {
+    scoreboard.update((sb) {
+      sb?.target++;
+    });
+  }
+
+  void directlyDecTarget() {
+    scoreboard.update((sb) {
+      sb?.target--;
+    });
+  }
+
   void add2DRuns() {
     scoreboard.update((sb) {
       sb?.add2DRun();

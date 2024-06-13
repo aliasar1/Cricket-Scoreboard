@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:aagpl_scoreboard/views/setup_board_screen.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../utils/size_config.dart';
 import '../widgets/ball_container.dart';
@@ -34,6 +38,234 @@ class ScoreboardScreen extends StatelessWidget {
         child: Obx(
           () => Column(
             children: [
+              Container(
+                width: double.infinity,
+                height: SizeConfig.blockSizeVertical! * 12,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/logos/logo.svg',
+                      height: SizeConfig.blockSizeVertical! * 9,
+                      width: SizeConfig.blockSizeVertical! * 9,
+                      fit: BoxFit.scaleDown,
+                    ),
+                    Txt(
+                      textAlign: TextAlign.end,
+                      text: "AAGPL SEASON 13",
+                      fontSize: SizeConfig.blockSizeVertical! * 3,
+                      fontWeight: FontWeight.bold,
+                      color: ColorsManager.primaryColor,
+                    ),
+                    SvgPicture.asset(
+                      'assets/logos/sponsor logo og clr.svg',
+                      height: SizeConfig.blockSizeVertical! * 9,
+                      width: SizeConfig.blockSizeVertical! * 9,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: SizeConfig.blockSizeVertical! * 4,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Txt(
+                    text: "${controller.scoreboard.value.battingTeam} ",
+                    fontSize: SizeConfig.blockSizeVertical! * 7,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  Txt(
+                    text: "vs ",
+                    fontSize: SizeConfig.blockSizeVertical! * 6,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 202, 196, 196),
+                  ),
+                  Txt(
+                    text: "${controller.scoreboard.value.bowlingTeam} ",
+                    fontSize: SizeConfig.blockSizeVertical! * 7,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: SizeConfig.blockSizeVertical! * 4,
+              ),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: controller.isTargetSet.value
+                          ? Alignment.centerLeft
+                          : Alignment.center,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.safeBlockVertical! * 10,
+                        ),
+                        height: SizeConfig.safeBlockVertical! * 25,
+                        width: SizeConfig.safeBlockHorizontal! * 25,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              ColorsManager.whiteColor,
+                              Color.fromARGB(255, 214, 213, 213),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 7,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Txt(
+                              textAlign: TextAlign.center,
+                              text: "SCORE",
+                              fontSize: SizeConfig.blockSizeVertical! * 5,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsManager.primaryColor,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Txt(
+                                  textAlign: TextAlign.center,
+                                  text:
+                                      " ${controller.scoreboard.value.totalRuns}/ ",
+                                  fontSize: SizeConfig.blockSizeVertical! * 6,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorsManager.primaryColor,
+                                ),
+                                Txt(
+                                  textAlign: TextAlign.center,
+                                  text:
+                                      "${controller.scoreboard.value.wickets} ",
+                                  fontSize: SizeConfig.blockSizeVertical! * 6,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorsManager.primaryColor,
+                                ),
+                              ],
+                            ),
+                            Container(
+                              width: SizeConfig.safeBlockHorizontal! * 20,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.safeBlockVertical! * 10,
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    ColorsManager.primaryColor,
+                                    ColorsManager.lightPrimaryColor,
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Txt(
+                                    text: "Over: ",
+                                    fontSize: SizeConfig.blockSizeVertical! * 5,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorsManager.whiteColor,
+                                  ),
+                                  Txt(
+                                    text:
+                                        "${controller.currentOver.value}.${controller.currentBall.value}",
+                                    fontSize: SizeConfig.blockSizeVertical! * 5,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorsManager.whiteColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Obx(() => controller.isTargetSet.value ||
+                            controller.isWinningCardUp.value
+                        ? Container(
+                            height: SizeConfig.safeBlockVertical! * 25,
+                            width: SizeConfig.safeBlockHorizontal! * 25,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  ColorsManager.whiteColor,
+                                  Color.fromARGB(255, 214, 213, 213),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    controller.directlyDecTarget();
+                                  },
+                                  child: Txt(
+                                    textAlign: TextAlign.center,
+                                    text: "Target ",
+                                    fontSize: SizeConfig.safeBlockVertical! * 7,
+                                    color: ColorsManager.primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    controller.directlyIncTarget();
+                                  },
+                                  child: Txt(
+                                    textAlign: TextAlign.center,
+                                    text:
+                                        ' ${controller.scoreboard.value.target.toString()}',
+                                    fontSize: SizeConfig.safeBlockVertical! * 7,
+                                    color: ColorsManager.primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container()),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: SizeConfig.blockSizeVertical! * 4,
               ),
@@ -92,100 +324,58 @@ class ScoreboardScreen extends StatelessWidget {
                       text: 'WICKET',
                     )
                   : Container(),
-              Obx(() => controller.isTargetSet.value &&
-                      controller.isAnyCardsUp.isFalse
-                  ? Container(
-                      height: SizeConfig.safeBlockVertical! * 25,
-                      width: SizeConfig.safeBlockHorizontal! * 25,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [
-                            ColorsManager.whiteColor,
-                            Color.fromARGB(255, 214, 213, 213),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Txt(
-                            textAlign: TextAlign.center,
-                            text: "Target",
-                            fontSize: SizeConfig.safeBlockVertical! * 7,
-                            color: ColorsManager.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          Txt(
-                            textAlign: TextAlign.center,
-                            text: controller.scoreboard.value.target.toString(),
-                            fontSize: SizeConfig.safeBlockVertical! * 10,
-                            color: ColorsManager.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container()),
-              controller.isWinningCardUp.value &&
-                      controller.isAnyCardsUp.isFalse
-                  ? Container(
-                      height: SizeConfig.safeBlockVertical! * 25,
-                      width: SizeConfig.safeBlockHorizontal! * 35,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [
-                            ColorsManager.whiteColor,
-                            Color.fromARGB(255, 214, 213, 213),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Txt(
-                            textAlign: TextAlign.center,
-                            text: "Congratulations!",
-                            fontSize: SizeConfig.safeBlockVertical! * 6,
-                            color: ColorsManager.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          Txt(
-                            textAlign: TextAlign.center,
-                            text:
-                                "${controller.winningTeam.value} has won the match against ${controller.winningTeam.value == controller.scoreboard.value.battingTeam ? controller.scoreboard.value.bowlingTeam : controller.scoreboard.value.battingTeam}.",
-                            fontSize: SizeConfig.safeBlockVertical! * 4,
-                            color: ColorsManager.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(),
               const Spacer(),
               Column(
                 children: [
+                  controller.isWinningCardUp.value &&
+                          controller.isAnyCardsUp.isFalse
+                      ? Container(
+                          height: SizeConfig.safeBlockVertical! * 10,
+                          width: SizeConfig.safeBlockHorizontal! * 45,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                ColorsManager.primaryColor,
+                                ColorsManager.lightPrimaryColor,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Txt(
+                                textAlign: TextAlign.center,
+                                text: "Congratulations!",
+                                fontSize: SizeConfig.safeBlockVertical! * 3,
+                                color: ColorsManager.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              Txt(
+                                textAlign: TextAlign.center,
+                                text:
+                                    "${controller.winningTeam.value} has won the match against ${controller.winningTeam.value == controller.scoreboard.value.battingTeam ? controller.scoreboard.value.bowlingTeam : controller.scoreboard.value.battingTeam}.",
+                                fontSize: SizeConfig.safeBlockVertical! * 3,
+                                color: ColorsManager.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical! * 2,
+                  ),
                   Row(
                     children: [
                       InkWell(
@@ -717,11 +907,6 @@ class ScoreboardScreen extends StatelessWidget {
                               text: "PP",
                               onPressed: () {
                                 controller.onPPPressed();
-                              }),
-                          CustomSquareButton(
-                              text: "TO",
-                              onPressed: () {
-                                controller.onTOPressed();
                               }),
                           InkWell(
                             onTap: () {
