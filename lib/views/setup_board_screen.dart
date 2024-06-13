@@ -4,6 +4,7 @@ import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:aagpl_scoreboard/views/scoreboard_screen.dart';
 import '../constants/colors.dart';
 import '../constants/fonts.dart';
+import '../utils/size_config.dart';
 import '../widgets/custom/custom_button.dart';
 import '../widgets/custom/custom_dropdown_field.dart';
 import '../widgets/custom/custom_text.dart';
@@ -17,6 +18,7 @@ class SetupScoreboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -29,9 +31,9 @@ class SetupScoreboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.sports_cricket,
-                  size: 300,
+                  size: SizeConfig.screenHeight! * 0.2,
                   color: ColorsManager.primaryColor,
                 ),
                 const Txt(
@@ -44,8 +46,8 @@ class SetupScoreboardScreen extends StatelessWidget {
                   height: 10,
                 ),
                 SizedBox(
-                  width: 360,
-                  height: 560,
+                  width: SizeConfig.screenWidth! * 0.3,
+                  height: SizeConfig.screenHeight! * 0.5,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -171,7 +173,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                       ),
                       CustomButton(
                         color: ColorsManager.primaryColor,
-                        hasInfiniteWidth: false,
+                        hasInfiniteWidth: true,
                         onPressed: () {
                           scoreController.setupBoard();
                           Get.offAll(ScoreboardScreen());

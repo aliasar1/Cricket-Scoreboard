@@ -36,7 +36,7 @@ class AdminLoginScreen extends StatelessWidget {
                   child: Icon(
                     Icons.sports_cricket,
                     color: ColorsManager.primaryColor,
-                    size: Get.height * 0.3,
+                    size: SizeConfig.screenHeight! * 0.2,
                   ),
                 ),
                 const Txt(
@@ -56,7 +56,7 @@ class AdminLoginScreen extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(
-                    horizontal: Get.width * 0.3,
+                    horizontal: SizeConfig.screenWidth! * 0.3,
                   ),
                   child: Column(
                     children: [
@@ -99,7 +99,7 @@ class AdminLoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: SizeManager.sizeM * 2,
+                        height: SizeManager.sizeM * 1.5,
                       ),
                       Obx(
                         () => CustomButton(

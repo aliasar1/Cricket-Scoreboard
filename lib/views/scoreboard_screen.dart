@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants/fonts.dart';
 import '../constants/values.dart';
+import '../utils/size_config.dart';
 import '../widgets/ball_container.dart';
 import '../widgets/curved_bottom_container.dart';
 import '../widgets/custom/custom_button.dart';
@@ -22,6 +23,7 @@ class ScoreboardScreen extends StatelessWidget {
   final ScoreController controller = Get.find<ScoreController>();
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
