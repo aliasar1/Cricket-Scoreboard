@@ -28,7 +28,7 @@ class BallContainer extends StatelessWidget {
           type.toString(),
           style: TextStyle(
             color: Colors.black,
-            fontSize: size / 2,
+            fontSize: size / 2.5,
             fontWeight: FontWeight.bold,
           ),
         ),

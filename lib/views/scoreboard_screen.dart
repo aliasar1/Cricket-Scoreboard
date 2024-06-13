@@ -17,7 +17,8 @@ class ScoreboardScreen extends StatelessWidget {
   ScoreboardScreen({Key? key}) : super(key: key);
   static const String routeName = '/ScoreboardScreen';
 
-  final ScoreController controller = Get.find<ScoreController>();
+  // final ScoreController controller = Get.find<ScoreController>();
+  final ScoreController controller = Get.put(ScoreController());
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +166,7 @@ class ScoreboardScreen extends StatelessWidget {
                         children: [
                           Txt(
                             textAlign: TextAlign.center,
-                            text: "Congratulation!",
+                            text: "Congratulations!",
                             fontSize: SizeConfig.safeBlockVertical! * 6,
                             color: ColorsManager.primaryColor,
                             fontWeight: FontWeight.bold,
@@ -564,7 +565,7 @@ class ScoreboardScreen extends StatelessWidget {
                                                         type: ball,
                                                         size: SizeConfig
                                                                 .blockSizeVertical! *
-                                                            3.5,
+                                                            4,
                                                       ),
                                                     );
                                             },

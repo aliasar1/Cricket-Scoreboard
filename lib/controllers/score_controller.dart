@@ -298,6 +298,7 @@ class ScoreController extends GetxController {
   void updateBatsman(String name, String num) {
     Batsman? existingBatsman = batsmen.firstWhereOrNull(
         (batsmen) => batsmen.name.toLowerCase() == name.toLowerCase());
+
     if (existingBatsman != null) {
       if (num == "1") {
         scoreboard.update((sb) {
