@@ -1,6 +1,8 @@
 import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/size_config.dart';
+
 class CustomRoundButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -13,11 +15,12 @@ class CustomRoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 44,
-        width: 44,
+        height: SizeConfig.blockSizeVertical! * 4.5,
+        width: SizeConfig.blockSizeVertical! * 4.5,
         decoration: BoxDecoration(
           color: ColorsManager.whiteColor,
           shape: BoxShape.circle,
@@ -30,9 +33,9 @@ class CustomRoundButton extends StatelessWidget {
           child: FittedBox(
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 color: ColorsManager.primaryColor,
-                fontSize: 22,
+                fontSize: SizeConfig.blockSizeVertical! * 2.4,
                 fontWeight: FontWeight.bold,
               ),
             ),

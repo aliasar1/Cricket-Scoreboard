@@ -16,7 +16,8 @@ class ScoreboardScreen extends StatelessWidget {
   ScoreboardScreen({Key? key}) : super(key: key);
   static const String routeName = '/ScoreboardScreen';
 
-  final ScoreController controller = Get.find<ScoreController>();
+  final ScoreController controller = Get.put(ScoreController());
+  // final ScoreController controller = Get.find<ScoreController>();
 
   @override
   Widget build(BuildContext context) {
@@ -107,17 +108,17 @@ class ScoreboardScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Txt(
+                          Txt(
                             textAlign: TextAlign.center,
                             text: "Target",
-                            fontSize: 50,
+                            fontSize: SizeConfig.safeBlockVertical! * 7,
                             color: ColorsManager.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                           Txt(
                             textAlign: TextAlign.center,
                             text: controller.scoreboard.value.target.toString(),
-                            fontSize: 120,
+                            fontSize: SizeConfig.safeBlockVertical! * 10,
                             color: ColorsManager.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -129,7 +130,7 @@ class ScoreboardScreen extends StatelessWidget {
                       controller.isAnyCardsUp.isFalse
                   ? Container(
                       height: SizeConfig.safeBlockVertical! * 25,
-                      width: SizeConfig.safeBlockHorizontal! * 30,
+                      width: SizeConfig.safeBlockHorizontal! * 35,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [
@@ -152,10 +153,10 @@ class ScoreboardScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Txt(
+                          Txt(
                             textAlign: TextAlign.center,
                             text: "Congratulation!",
-                            fontSize: 50,
+                            fontSize: SizeConfig.safeBlockVertical! * 6,
                             color: ColorsManager.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -163,7 +164,7 @@ class ScoreboardScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             text:
                                 "${controller.winningTeam.value} has won the match against ${controller.winningTeam.value == controller.scoreboard.value.battingTeam ? controller.scoreboard.value.bowlingTeam : controller.scoreboard.value.battingTeam}.",
-                            fontSize: 40,
+                            fontSize: SizeConfig.safeBlockVertical! * 4,
                             color: ColorsManager.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -188,11 +189,11 @@ class ScoreboardScreen extends StatelessWidget {
                               Colors.white70
                             ],
                             child: SizedBox(
-                              width: 200,
+                              width: SizeConfig.safeBlockVertical! * 20,
                               child: Txt(
                                 textAlign: TextAlign.center,
                                 text: controller.scoreboard.value.battingTeam,
-                                fontSize: 35,
+                                fontSize: SizeConfig.safeBlockVertical! * 3.6,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -310,7 +311,9 @@ class ScoreboardScreen extends StatelessWidget {
                                                       textAlign: TextAlign.end,
                                                       text:
                                                           " ${controller.scoreboard.value.totalRuns}/ ",
-                                                      fontSize: 36,
+                                                      fontSize: SizeConfig
+                                                              .blockSizeVertical! *
+                                                          3,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.white,
@@ -325,7 +328,9 @@ class ScoreboardScreen extends StatelessWidget {
                                                       textAlign: TextAlign.end,
                                                       text:
                                                           "${controller.scoreboard.value.wickets} ",
-                                                      fontSize: 36,
+                                                      fontSize: SizeConfig
+                                                              .blockSizeVertical! *
+                                                          3,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.white,
@@ -345,9 +350,11 @@ class ScoreboardScreen extends StatelessWidget {
                                               InkWell(
                                                 onTap: () => controller
                                                     .directlyDecOver(),
-                                                child: const Txt(
+                                                child: Txt(
                                                   text: "Over: ",
-                                                  fontSize: 30,
+                                                  fontSize: SizeConfig
+                                                          .blockSizeVertical! *
+                                                      3,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                 ),
@@ -358,7 +365,9 @@ class ScoreboardScreen extends StatelessWidget {
                                                 child: Txt(
                                                   text:
                                                       "${controller.currentOver.value}.${controller.currentBall.value}",
-                                                  fontSize: 30,
+                                                  fontSize: SizeConfig
+                                                          .blockSizeVertical! *
+                                                      3,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                 ),
@@ -378,16 +387,20 @@ class ScoreboardScreen extends StatelessWidget {
                                             child: Txt(
                                               text:
                                                   "${controller.scoreboard.value.battingTeam} ",
-                                              fontSize: 32,
+                                              fontSize: SizeConfig
+                                                      .blockSizeVertical! *
+                                                  3.2,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                           ),
-                                          const Txt(
+                                          Txt(
                                             text: "vs ",
-                                            fontSize: 30,
+                                            fontSize:
+                                                SizeConfig.blockSizeVertical! *
+                                                    3,
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromARGB(
+                                            color: const Color.fromARGB(
                                                 255, 202, 196, 196),
                                           ),
                                           InkWell(
@@ -396,7 +409,9 @@ class ScoreboardScreen extends StatelessWidget {
                                             child: Txt(
                                               text:
                                                   "${controller.scoreboard.value.bowlingTeam} ",
-                                              fontSize: 32,
+                                              fontSize: SizeConfig
+                                                      .blockSizeVertical! *
+                                                  3.2,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
@@ -421,7 +436,9 @@ class ScoreboardScreen extends StatelessWidget {
                                           child: Txt(
                                             text: controller.scoreboard.value
                                                 .currentBowler.name,
-                                            fontSize: 30,
+                                            fontSize:
+                                                SizeConfig.blockSizeVertical! *
+                                                    3,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -431,9 +448,13 @@ class ScoreboardScreen extends StatelessWidget {
                                             InkWell(
                                               onTap: () => controller
                                                   .directlyDecBowlerConceededRuns(),
-                                              child: const SizedBox(
-                                                height: 40,
-                                                width: 40,
+                                              child: SizedBox(
+                                                height: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    2,
+                                                width: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    2,
                                               ),
                                             ),
                                             InkWell(
@@ -442,7 +463,9 @@ class ScoreboardScreen extends StatelessWidget {
                                               child: Txt(
                                                 text:
                                                     "${controller.scoreboard.value.currentBowler.runsConceded}-",
-                                                fontSize: 30,
+                                                fontSize: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    3,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                             ),
@@ -452,7 +475,9 @@ class ScoreboardScreen extends StatelessWidget {
                                               child: Txt(
                                                 text:
                                                     "${controller.scoreboard.value.currentBowler.wicketsTaken} ",
-                                                fontSize: 30,
+                                                fontSize: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    3,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                             ),
@@ -462,7 +487,9 @@ class ScoreboardScreen extends StatelessWidget {
                                               child: Txt(
                                                 text:
                                                     "(${controller.scoreboard.value.currentBowler.overs}",
-                                                fontSize: 30,
+                                                fontSize: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    3,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                             ),
@@ -472,16 +499,22 @@ class ScoreboardScreen extends StatelessWidget {
                                               child: Txt(
                                                 text:
                                                     ".${controller.scoreboard.value.currentBowler.balls})",
-                                                fontSize: 30,
+                                                fontSize: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    3,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                             ),
                                             InkWell(
                                               onTap: () => controller
                                                   .directlyDecBowlerWickets(),
-                                              child: const SizedBox(
-                                                height: 40,
-                                                width: 40,
+                                              child: SizedBox(
+                                                height: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    2,
+                                                width: SizeConfig
+                                                        .blockSizeVertical! *
+                                                    2,
                                               ),
                                             ),
                                           ],
@@ -519,7 +552,9 @@ class ScoreboardScreen extends StatelessWidget {
                                                               8.0),
                                                       child: BallContainer(
                                                         type: ball,
-                                                        size: 40,
+                                                        size: SizeConfig
+                                                                .blockSizeVertical! *
+                                                            3.5,
                                                       ),
                                                     );
                                             },
@@ -542,11 +577,11 @@ class ScoreboardScreen extends StatelessWidget {
                           gradientColors: const [Colors.white70, Colors.white],
                           child: Center(
                             child: SizedBox(
-                              width: 200,
+                              width: SizeConfig.safeBlockVertical! * 20,
                               child: Txt(
                                 textAlign: TextAlign.center,
                                 text: controller.scoreboard.value.bowlingTeam,
-                                fontSize: 35,
+                                fontSize: SizeConfig.safeBlockVertical! * 3.6,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -559,7 +594,7 @@ class ScoreboardScreen extends StatelessWidget {
                     height: 8,
                   ),
                   Container(
-                    height: SizeConfig.blockSizeVertical! * 5,
+                    height: SizeConfig.blockSizeVertical! * 6,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       color: ColorsManager.lightPrimaryColor,

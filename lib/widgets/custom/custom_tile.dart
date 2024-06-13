@@ -46,17 +46,17 @@ class CustomListTile extends StatelessWidget {
           isOnStrike
               ? InkWell(
                   onTap: onTogglerPressed,
-                  child: const Icon(
+                  child: Icon(
                     Icons.arrow_right,
                     color: Colors.green,
-                    size: 50,
+                    size: SizeConfig.blockSizeVertical! * 4,
                   ),
                 )
               : InkWell(
                   onTap: onTogglerPressed,
-                  child: const SizedBox(
-                    width: 50,
-                    height: 50,
+                  child: SizedBox(
+                    width: SizeConfig.blockSizeVertical! * 4,
+                    height: SizeConfig.blockSizeVertical! * 4,
                   ),
                 ),
           const SizedBox(width: 10),
@@ -65,7 +65,7 @@ class CustomListTile extends StatelessWidget {
               onTap: onBatsmanPressed,
               child: Txt(
                 text: name,
-                fontSize: 30,
+                fontSize: SizeConfig.blockSizeVertical! * 3,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -74,17 +74,17 @@ class CustomListTile extends StatelessWidget {
             children: [
               InkWell(
                 onTap: onDecRunsPressed,
-                child: const SizedBox(
-                  height: 40,
-                  width: 40,
+                child: SizedBox(
+                  height: SizeConfig.blockSizeVertical! * 2,
+                  width: SizeConfig.blockSizeVertical! * 2,
                 ),
               ),
               InkWell(
                 onTap: onIncRunsPressed,
                 child: Text(
                   "$runs",
-                  style: const TextStyle(
-                    fontSize: 30,
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical! * 3,
                     fontWeight: FontWeight.normal,
                     color: Colors.black,
                   ),
@@ -94,8 +94,8 @@ class CustomListTile extends StatelessWidget {
                 onTap: onIncBallsPressed,
                 child: Text(
                   " ($ballFaced)",
-                  style: const TextStyle(
-                    fontSize: 30,
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical! * 3,
                     fontWeight: FontWeight.normal,
                     color: Colors.black,
                   ),
@@ -103,9 +103,9 @@ class CustomListTile extends StatelessWidget {
               ),
               InkWell(
                 onTap: onDecBallsPressed,
-                child: const SizedBox(
-                  height: 40,
-                  width: 40,
+                child: SizedBox(
+                  height: SizeConfig.blockSizeVertical! * 2,
+                  width: SizeConfig.blockSizeVertical! * 2,
                 ),
               ),
             ],

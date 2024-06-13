@@ -57,7 +57,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Txt(
-                            text: "Team Data",
+                            text: "Teams Data",
                             color: ColorsManager.primaryColor,
                             fontSize: FontSize.titleFontSize,
                             fontWeight: FontWeight.bold,
