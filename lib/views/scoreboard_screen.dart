@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:aagpl_scoreboard/views/setup_board_screen.dart';
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -73,6 +70,10 @@ class ScoreboardScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                      height: SizeConfig.safeBlockVertical! * 7,
+                      width: SizeConfig.safeBlockHorizontal! * 7,
+                      child: Image.asset('assets/images/bat.png')),
                   Txt(
                     text: "${controller.scoreboard.value.battingTeam} ",
                     fontSize: SizeConfig.blockSizeVertical! * 7,
@@ -91,6 +92,10 @@ class ScoreboardScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
+                  SizedBox(
+                      height: SizeConfig.safeBlockVertical! * 7,
+                      width: SizeConfig.safeBlockHorizontal! * 7,
+                      child: Image.asset('assets/images/ball.png')),
                 ],
               ),
               SizedBox(
@@ -581,6 +586,15 @@ class ScoreboardScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
+                                          SizedBox(
+                                              height: SizeConfig
+                                                      .safeBlockVertical! *
+                                                  3,
+                                              width: SizeConfig
+                                                      .safeBlockHorizontal! *
+                                                  3,
+                                              child: Image.asset(
+                                                  'assets/images/bat.png')),
                                           InkWell(
                                             onTap: () {
                                               controller.decrementScore();
@@ -617,6 +631,15 @@ class ScoreboardScreen extends StatelessWidget {
                                               color: Colors.white,
                                             ),
                                           ),
+                                          SizedBox(
+                                              height: SizeConfig
+                                                      .safeBlockVertical! *
+                                                  3,
+                                              width: SizeConfig
+                                                      .safeBlockHorizontal! *
+                                                  3,
+                                              child: Image.asset(
+                                                  'assets/images/ball.png')),
                                         ],
                                       ),
                                     ],
