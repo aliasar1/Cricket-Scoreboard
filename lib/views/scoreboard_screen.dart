@@ -1,5 +1,6 @@
 import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/controllers/score_controller.dart';
+import 'package:aagpl_scoreboard/views/setup_board_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/size_config.dart';
@@ -16,8 +17,7 @@ class ScoreboardScreen extends StatelessWidget {
   ScoreboardScreen({Key? key}) : super(key: key);
   static const String routeName = '/ScoreboardScreen';
 
-  final ScoreController controller = Get.put(ScoreController());
-  // final ScoreController controller = Get.find<ScoreController>();
+  final ScoreController controller = Get.find<ScoreController>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +59,16 @@ class ScoreboardScreen extends StatelessWidget {
               controller.isPPPressed.value
                   ? const ImageContainer(
                       imageUrl: 'assets/images/pp.jpg',
+                    )
+                  : Container(),
+              controller.isWideBallPressed.value
+                  ? const ImageContainer(
+                      imageUrl: 'assets/images/wide.jpg',
+                    )
+                  : Container(),
+              controller.isLBWPressed.value
+                  ? const ImageContainer(
+                      imageUrl: 'assets/images/lbw.jpg',
                     )
                   : Container(),
               controller.isROPressed.value
@@ -655,6 +665,7 @@ class ScoreboardScreen extends StatelessWidget {
                             text: "WB",
                             onPressed: () {
                               controller.incScoreBy1OnlyNoBallInc('WB');
+                              controller.onWideBallPressed();
                             },
                           ),
                           CustomRoundButton(
@@ -707,6 +718,31 @@ class ScoreboardScreen extends StatelessWidget {
                               onPressed: () {
                                 controller.onTOPressed();
                               }),
+                          InkWell(
+                            onTap: () {
+                              controller.clearBoard();
+                              Get.offAll(SetupScoreboardScreen());
+                            },
+                            child: Container(
+                              height: SizeConfig.blockSizeVertical! * 4.5,
+                              width: SizeConfig.blockSizeVertical! * 4.5,
+                              decoration: BoxDecoration(
+                                color: ColorsManager.whiteColor,
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: ColorsManager.primaryColor,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.refresh,
+                                  color: ColorsManager.primaryColor,
+                                  size: SizeConfig.blockSizeVertical! * 4,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

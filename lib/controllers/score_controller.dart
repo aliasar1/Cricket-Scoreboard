@@ -95,6 +95,7 @@ class ScoreController extends GetxController {
   RxBool isPPPressed = false.obs;
   RxBool isROPressed = false.obs;
   RxBool isHWPressed = false.obs;
+  RxBool isWideBallPressed = false.obs;
   RxBool isTOPressed = false.obs;
   RxBool isAnyCardsUp = false.obs;
 
@@ -121,6 +122,15 @@ class ScoreController extends GetxController {
     isAnyCardsUp.value = true;
     Timer(const Duration(seconds: 3), () {
       isWicketPressed.value = false;
+      _checkAnyCardsUp();
+    });
+  }
+
+  void onWideBallPressed() {
+    isWideBallPressed.value = true;
+    isAnyCardsUp.value = true;
+    Timer(const Duration(seconds: 3), () {
+      isWideBallPressed.value = false;
       _checkAnyCardsUp();
     });
   }
@@ -649,6 +659,7 @@ class ScoreController extends GetxController {
   }
 
   void clearBoard() {
+    // Clear text controllers
     batsman1Controller.clear();
     batsman2Controller.clear();
     bowlerController.clear();
@@ -659,6 +670,23 @@ class ScoreController extends GetxController {
     totalCurrentWicketsController.clear();
     currentRunsController.clear();
 
+    // Reset observables
+    currentOver.value = 0;
+    currentBall.value = 0;
+    initScore.value = 0;
+    initWickets.value = 0;
+    currentOverBalls.clear();
+    isTargetSet.value = false;
+    isWinningCardUp.value = false;
+    winningTeam.value = "";
+
+    // Reset batsmen and bowler
+    batsman1.value = Batsman(name: '');
+    batsman2.value = Batsman(name: '');
+    currentBowler.value = Bowler(name: '');
+    lastBowler.value = Bowler(name: '');
+
+    // Reset scoreboard
     scoreboard.value = Scoreboard(
       battingTeam: '',
       bowlingTeam: '',
@@ -667,7 +695,30 @@ class ScoreController extends GetxController {
       batsman2: Batsman(name: ''),
       currentBowler: Bowler(name: ''),
     );
-    lastBowler.value = Bowler(name: '');
-    currentOverBalls.assignAll([]);
+
+    // Reset team and player IDs
+    battingTeamId.value = null;
+    bowlingTeamId.value = null;
+    batsman1Id.value = null;
+    batsman2Id.value = null;
+    bowlerId.value = null;
+
+    // Reset card actions
+    isFourPressed.value = false;
+    isSixPressed.value = false;
+    isWicketPressed.value = false;
+    isNoBallPressed.value = false;
+    isLBWPressed.value = false;
+    isCatchPressed.value = false;
+    isPPPressed.value = false;
+    isROPressed.value = false;
+    isHWPressed.value = false;
+    isWideBallPressed.value = false;
+    isTOPressed.value = false;
+    isAnyCardsUp.value = false;
+
+    // Reset the list of bowlers and batsmen
+    bowlers.clear();
+    batsmen.clear();
   }
 }

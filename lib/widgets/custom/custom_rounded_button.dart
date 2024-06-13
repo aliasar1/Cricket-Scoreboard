@@ -35,7 +35,7 @@ class CustomRoundButton extends StatelessWidget {
               text,
               style: TextStyle(
                 color: ColorsManager.primaryColor,
-                fontSize: SizeConfig.blockSizeVertical! * 2.4,
+                fontSize: SizeConfig.blockSizeVertical! * 2,
                 fontWeight: FontWeight.bold,
               ),
             ),

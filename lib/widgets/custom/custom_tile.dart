@@ -32,7 +32,6 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      padding: const EdgeInsets.all(8.0),
       height: SizeConfig.blockSizeVertical! * 5,
       decoration: BoxDecoration(
         color: Colors.transparent,
