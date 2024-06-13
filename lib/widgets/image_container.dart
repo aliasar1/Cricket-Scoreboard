@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/size_config.dart';
 
 class ImageContainer extends StatelessWidget {
   final String imageUrl;
@@ -10,9 +11,10 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
-      height: 550,
-      width: 550,
+      height: SizeConfig.safeBlockVertical! * 40,
+      width: SizeConfig.safeBlockHorizontal! * 40,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [

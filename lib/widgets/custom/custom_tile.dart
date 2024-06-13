@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/size_config.dart';
 import 'custom_text.dart';
 
 class CustomListTile extends StatelessWidget {
@@ -29,15 +30,19 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
       padding: const EdgeInsets.all(8.0),
-      height: 50,
+      height: SizeConfig.blockSizeVertical! * 5,
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Row(
         children: [
+          const SizedBox(
+            width: 5,
+          ),
           isOnStrike
               ? InkWell(
                   onTap: onTogglerPressed,

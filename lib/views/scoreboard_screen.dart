@@ -2,16 +2,12 @@ import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../constants/fonts.dart';
-import '../constants/values.dart';
 import '../utils/size_config.dart';
 import '../widgets/ball_container.dart';
 import '../widgets/curved_bottom_container.dart';
-import '../widgets/custom/custom_button.dart';
 import '../widgets/custom/custom_rounded_button.dart';
 import '../widgets/custom/custom_squared_button.dart';
 import '../widgets/custom/custom_text.dart';
-import '../widgets/custom/custom_text_form_field.dart';
 import '../widgets/custom/custom_tile.dart';
 import '../widgets/gradient_round_container.dart';
 import '../widgets/image_container.dart';
@@ -21,6 +17,7 @@ class ScoreboardScreen extends StatelessWidget {
   static const String routeName = '/ScoreboardScreen';
 
   final ScoreController controller = Get.find<ScoreController>();
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -35,8 +32,8 @@ class ScoreboardScreen extends StatelessWidget {
         child: Obx(
           () => Column(
             children: [
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: SizeConfig.blockSizeVertical! * 4,
               ),
               controller.isCatchPressed.value
                   ? const ImageContainer(
@@ -86,8 +83,8 @@ class ScoreboardScreen extends StatelessWidget {
               Obx(() => controller.isTargetSet.value &&
                       controller.isAnyCardsUp.isFalse
                   ? Container(
-                      height: 250,
-                      width: 350,
+                      height: SizeConfig.safeBlockVertical! * 25,
+                      width: SizeConfig.safeBlockHorizontal! * 25,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [
@@ -131,8 +128,8 @@ class ScoreboardScreen extends StatelessWidget {
               controller.isWinningCardUp.value &&
                       controller.isAnyCardsUp.isFalse
                   ? Container(
-                      height: 250,
-                      width: 600,
+                      height: SizeConfig.safeBlockVertical! * 25,
+                      width: SizeConfig.safeBlockHorizontal! * 30,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [
@@ -184,8 +181,8 @@ class ScoreboardScreen extends StatelessWidget {
                         child: Obx(
                           () => CurvedParentContainer(
                             isLeft: true,
-                            height: 110,
-                            width: 220,
+                            height: SizeConfig.safeBlockVertical! * 10,
+                            width: SizeConfig.safeBlockHorizontal! * 10,
                             gradientColors: const [
                               Colors.white,
                               Colors.white70
@@ -204,7 +201,7 @@ class ScoreboardScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: Container(
-                          height: 110,
+                          height: SizeConfig.safeBlockVertical! * 10,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
@@ -215,7 +212,7 @@ class ScoreboardScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 550,
+                                width: SizeConfig.safeBlockHorizontal! * 30,
                                 child: Obx(
                                   () => Column(
                                     children: [
@@ -267,10 +264,11 @@ class ScoreboardScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 25),
+                              SizedBox(
+                                  width: SizeConfig.safeBlockHorizontal! * 1),
                               Expanded(
                                 child: Container(
-                                  height: 105,
+                                  height: SizeConfig.safeBlockVertical! * 9,
                                   decoration: const BoxDecoration(
                                     color: ColorsManager.primaryColor,
                                     borderRadius: BorderRadius.all(
@@ -284,8 +282,12 @@ class ScoreboardScreen extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           GradientRoundedContainer(
-                                            height: 50,
-                                            width: 160,
+                                            height:
+                                                SizeConfig.safeBlockVertical! *
+                                                    4,
+                                            width: SizeConfig
+                                                    .safeBlockHorizontal! *
+                                                8,
                                             gradientColors: const [
                                               ColorsManager.redColor,
                                               ColorsManager.primaryColor
@@ -295,6 +297,11 @@ class ScoreboardScreen extends StatelessWidget {
                                                   right: 8.0),
                                               child: Row(
                                                 children: [
+                                                  SizedBox(
+                                                    width: SizeConfig
+                                                            .safeBlockHorizontal! *
+                                                        0.5,
+                                                  ),
                                                   InkWell(
                                                     onTap: () {
                                                       controller.incScoreOnly();
@@ -328,7 +335,11 @@ class ScoreboardScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 35),
+                                          SizedBox(
+                                            width: SizeConfig
+                                                    .safeBlockHorizontal! *
+                                                1.5,
+                                          ),
                                           Row(
                                             children: [
                                               InkWell(
@@ -396,12 +407,14 @@ class ScoreboardScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 25),
+                              SizedBox(
+                                width: SizeConfig.safeBlockHorizontal! * 1,
+                              ),
                               Expanded(
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 50,
+                                      height: SizeConfig.blockSizeVertical! * 5,
                                       child: ListTile(
                                         title: InkWell(
                                           onTap: () => controller.nextBowler(),
@@ -481,18 +494,18 @@ class ScoreboardScreen extends StatelessWidget {
                                             itemCount: controller
                                                         .currentOverBalls
                                                         .length >
-                                                    8
-                                                ? 8
+                                                    7
+                                                ? 7
                                                 : controller
                                                     .currentOverBalls.length,
                                             itemBuilder: (context, index) {
                                               int displayIndex = controller
                                                           .currentOverBalls
                                                           .length >
-                                                      8
+                                                      7
                                                   ? controller.currentOverBalls
                                                           .length -
-                                                      8 +
+                                                      7 +
                                                       index
                                                   : index;
                                               String ball =
@@ -524,8 +537,8 @@ class ScoreboardScreen extends StatelessWidget {
                         onTap: () => controller.nextBowlingTeam(),
                         child: CurvedParentContainer(
                           isLeft: false,
-                          height: 110,
-                          width: 220,
+                          height: SizeConfig.safeBlockVertical! * 10,
+                          width: SizeConfig.safeBlockHorizontal! * 10,
                           gradientColors: const [Colors.white70, Colors.white],
                           child: Center(
                             child: SizedBox(
@@ -546,7 +559,7 @@ class ScoreboardScreen extends StatelessWidget {
                     height: 8,
                   ),
                   Container(
-                    height: 60,
+                    height: SizeConfig.blockSizeVertical! * 5,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       color: ColorsManager.lightPrimaryColor,
@@ -668,128 +681,6 @@ class ScoreboardScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Future<dynamic> buildUpdateTeam1Name(
-      ScoreController controller, bool isBattingTeam) {
-    return Get.defaultDialog(
-      title: "Update Team",
-      backgroundColor: Colors.white,
-      titleStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
-          fontWeight: FontWeight.bold,
-          fontSize: FontSize.titleFontSize),
-      titlePadding:
-          const EdgeInsets.symmetric(vertical: PaddingManager.paddingM),
-      radius: 5,
-      content: Column(
-        children: [
-          CustomTextFormField(
-            controller: isBattingTeam
-                ? controller.battingTeamController
-                : controller.bowlingTeamController,
-            labelText: "Name",
-            prefixIconData: Icons.person,
-            textInputAction: TextInputAction.next,
-            autofocus: false,
-          ),
-          const SizedBox(height: SizeManager.sizeM),
-          CustomButton(
-            color: ColorsManager.primaryColor,
-            onPressed: () {
-              isBattingTeam
-                  ? controller.updateBattingTeamName(
-                      controller.battingTeamController.text.trim())
-                  : controller.updateBowlingTeamName(
-                      controller.bowlingTeamController.text.trim());
-              Get.back();
-            },
-            text: "Update",
-            hasInfiniteWidth: true,
-            textColor: ColorsManager.whiteColor,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<dynamic> buildUpdateBowlerDialog(ScoreController controller) {
-    return Get.defaultDialog(
-      title: "Update Bowler",
-      backgroundColor: Colors.white,
-      titleStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
-          fontWeight: FontWeight.bold,
-          fontSize: FontSize.titleFontSize),
-      titlePadding:
-          const EdgeInsets.symmetric(vertical: PaddingManager.paddingM),
-      radius: 5,
-      content: Column(
-        children: [
-          CustomTextFormField(
-            controller: controller.bowlerController,
-            labelText: "Name",
-            prefixIconData: Icons.person,
-            textInputAction: TextInputAction.next,
-            autofocus: false,
-          ),
-          const SizedBox(height: SizeManager.sizeM),
-          CustomButton(
-            color: ColorsManager.primaryColor,
-            onPressed: () {
-              controller.updateBowler(controller.bowlerController.text.trim());
-              Get.back();
-            },
-            text: "Update",
-            hasInfiniteWidth: true,
-            textColor: ColorsManager.whiteColor,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<dynamic> buildUpdateBatsmanDialog(
-      ScoreController controller, String number) {
-    return Get.defaultDialog(
-      title: "Update Batsman",
-      backgroundColor: Colors.white,
-      titleStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
-          fontWeight: FontWeight.bold,
-          fontSize: FontSize.titleFontSize),
-      titlePadding:
-          const EdgeInsets.symmetric(vertical: PaddingManager.paddingM),
-      radius: 5,
-      content: Column(
-        children: [
-          CustomTextFormField(
-            controller: number == "1"
-                ? controller.batsman1Controller
-                : controller.batsman2Controller,
-            labelText: "Name",
-            prefixIconData: Icons.person,
-            textInputAction: TextInputAction.next,
-            autofocus: false,
-          ),
-          const SizedBox(height: SizeManager.sizeM),
-          CustomButton(
-            color: ColorsManager.primaryColor,
-            onPressed: () {
-              number == "1"
-                  ? controller.updateBatsman(
-                      controller.batsman1Controller.text.trim(), number)
-                  : controller.updateBatsman(
-                      controller.batsman2Controller.text.trim(), number);
-              Get.back();
-            },
-            text: "Update",
-            hasInfiniteWidth: true,
-            textColor: ColorsManager.whiteColor,
-          ),
-        ],
       ),
     );
   }
