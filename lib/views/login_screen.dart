@@ -5,6 +5,7 @@ import '../constants/colors.dart';
 import '../constants/strings.dart';
 import '../constants/values.dart';
 import '../controllers/auth_controller.dart';
+import '../utils/size_config.dart';
 import '../widgets/custom/custom_button.dart';
 import '../widgets/custom/custom_text.dart';
 import '../widgets/custom/custom_text_form_field.dart';
@@ -17,12 +18,13 @@ class AdminLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Center(
         child: Container(
-          margin: const EdgeInsets.symmetric(
-            vertical: MarginManager.marginXL,
-            horizontal: MarginManager.marginWeb,
+          margin: EdgeInsets.symmetric(
+            vertical: SizeConfig.screenHeight! * 0.2,
+            horizontal: SizeConfig.screenWidth! * 0.1,
           ),
           child: Form(
             key: authController.loginFormKey,
@@ -30,16 +32,16 @@ class AdminLoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Center(
+                Center(
                   child: Icon(
                     Icons.sports_cricket,
                     color: ColorsManager.primaryColor,
-                    size: SizeManager.sizeXL * 10,
+                    size: Get.height * 0.3,
                   ),
                 ),
                 const Txt(
                   text: "AAGPL LOGIN",
-                  fontSize: 46,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                   color: ColorsManager.primaryColor,
                 ),
@@ -53,8 +55,8 @@ class AdminLoginScreen extends StatelessWidget {
                   height: SizeManager.sizeL,
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: MarginManager.marginWeb,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: Get.width * 0.3,
                   ),
                   child: Column(
                     children: [
@@ -73,7 +75,7 @@ class AdminLoginScreen extends StatelessWidget {
                         },
                       ),
                       const SizedBox(
-                        height: SizeManager.sizeM * 1.5,
+                        height: SizeManager.sizeM,
                       ),
                       Obx(
                         () => CustomTextFormField(
