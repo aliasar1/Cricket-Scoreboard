@@ -37,7 +37,7 @@ class AdminLoginScreen extends StatelessWidget {
                     height: SizeConfig.screenHeight! * 0.3,
                     width: SizeConfig.screenHeight! * 0.3,
                     child: Image.asset(
-                      'assets/logos/logo.png',
+                      StringsManager.aagplLogo,
                       fit: BoxFit.contain,
                     ),
                   ),

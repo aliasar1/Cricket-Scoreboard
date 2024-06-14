@@ -4,6 +4,7 @@ import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:aagpl_scoreboard/views/scoreboard_screen.dart';
 import '../constants/colors.dart';
 import '../constants/fonts.dart';
+import '../constants/strings.dart';
 import '../utils/size_config.dart';
 import '../widgets/custom/custom_button.dart';
 import '../widgets/custom/custom_dropdown_field.dart';
@@ -42,7 +43,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                         height: SizeConfig.screenHeight! * 0.2,
                         width: SizeConfig.screenHeight! * 0.2,
                         child: Image.asset(
-                          'assets/logos/logo.png',
+                          StringsManager.aagplLogo,
                           fit: BoxFit.contain,
                         ),
                       ),
