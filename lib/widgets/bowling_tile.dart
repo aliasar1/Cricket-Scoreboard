@@ -22,7 +22,7 @@ class BowlingTile extends StatelessWidget {
           onTap: () => controller.nextBowler(),
           child: Txt(
             text: controller.scoreboard.value.currentBowler.name,
-            fontSize: SizeConfig.blockSizeVertical! * 2.8,
+            fontSize: SizeConfig.blockSizeVertical! * 2.5,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -32,8 +32,8 @@ class BowlingTile extends StatelessWidget {
             InkWell(
               onTap: () => controller.directlyDecBowlerConceededRuns(),
               child: SizedBox(
-                height: SizeConfig.blockSizeVertical! * 3,
-                width: SizeConfig.blockSizeVertical! * 3,
+                height: SizeConfig.blockSizeVertical! * 2,
+                width: SizeConfig.blockSizeVertical! * 2,
               ),
             ),
             InkWell(
@@ -41,7 +41,7 @@ class BowlingTile extends StatelessWidget {
               child: Txt(
                 text:
                     "${controller.scoreboard.value.currentBowler.runsConceded}-",
-                fontSize: SizeConfig.blockSizeVertical! * 3,
+                fontSize: SizeConfig.blockSizeVertical! * 2.5,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -50,7 +50,7 @@ class BowlingTile extends StatelessWidget {
               child: Txt(
                 text:
                     "${controller.scoreboard.value.currentBowler.wicketsTaken} ",
-                fontSize: SizeConfig.blockSizeVertical! * 3,
+                fontSize: SizeConfig.blockSizeVertical! * 2.5,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -58,7 +58,7 @@ class BowlingTile extends StatelessWidget {
               onTap: () => controller.directlyIncBowlerOverBalls(),
               child: Txt(
                 text: "(${controller.scoreboard.value.currentBowler.overs}",
-                fontSize: SizeConfig.blockSizeVertical! * 3,
+                fontSize: SizeConfig.blockSizeVertical! * 2.5,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -66,15 +66,15 @@ class BowlingTile extends StatelessWidget {
               onTap: () => controller.directlyDecBowlerOverBalls(),
               child: Txt(
                 text: ".${controller.scoreboard.value.currentBowler.balls})",
-                fontSize: SizeConfig.blockSizeVertical! * 3,
+                fontSize: SizeConfig.blockSizeVertical! * 2.5,
                 fontWeight: FontWeight.normal,
               ),
             ),
             InkWell(
               onTap: () => controller.directlyDecBowlerWickets(),
               child: SizedBox(
-                height: SizeConfig.blockSizeVertical! * 3,
-                width: SizeConfig.blockSizeVertical! * 3,
+                height: SizeConfig.blockSizeVertical! * 2,
+                width: SizeConfig.blockSizeVertical! * 2,
               ),
             ),
           ],
