@@ -37,16 +37,15 @@ class SetupScoreboardScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.sports_cricket,
-                      size: SizeConfig.blockSizeVertical! * 20,
-                      color: ColorsManager.primaryColor,
-                    ),
-                    const Txt(
-                      text: "AAGPL SEASON 13",
-                      color: ColorsManager.primaryColor,
-                      fontSize: FontSize.headerFontSize,
-                      fontWeight: FontWeight.bold,
+                    Center(
+                      child: SizedBox(
+                        height: SizeConfig.screenHeight! * 0.2,
+                        width: SizeConfig.screenHeight! * 0.2,
+                        child: Image.asset(
+                          'assets/logos/logo.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: SizeConfig.blockSizeVertical! * 1,

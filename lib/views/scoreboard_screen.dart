@@ -2,7 +2,6 @@ import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/controllers/score_controller.dart';
 import 'package:aagpl_scoreboard/views/setup_board_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../utils/size_config.dart';
 import '../widgets/ball_container.dart';
@@ -37,29 +36,26 @@ class ScoreboardScreen extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: SizeConfig.blockSizeVertical! * 12,
-                color: Colors.white,
+                height: SizeConfig.blockSizeVertical! * 14,
+                color: ColorsManager.scaffoldBgColor,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SvgPicture.asset(
-                      'assets/logos/logo.svg',
-                      height: SizeConfig.blockSizeVertical! * 9,
-                      width: SizeConfig.blockSizeVertical! * 9,
-                      fit: BoxFit.scaleDown,
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.13,
+                      width: SizeConfig.screenHeight! * 0.13,
+                      child: Image.asset(
+                        'assets/logos/logo.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    Txt(
-                      textAlign: TextAlign.end,
-                      text: "AAGPL SEASON 13",
-                      fontSize: SizeConfig.blockSizeVertical! * 3,
-                      fontWeight: FontWeight.bold,
-                      color: ColorsManager.primaryColor,
-                    ),
-                    SvgPicture.asset(
-                      'assets/logos/sponsor logo og clr.svg',
-                      height: SizeConfig.blockSizeVertical! * 9,
-                      width: SizeConfig.blockSizeVertical! * 9,
-                      fit: BoxFit.scaleDown,
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.15,
+                      width: SizeConfig.screenHeight! * 0.35,
+                      child: Image.asset(
+                        'assets/logos/cronysoft.png',
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ],
                 ),

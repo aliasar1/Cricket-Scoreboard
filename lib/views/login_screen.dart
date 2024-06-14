@@ -33,17 +33,17 @@ class AdminLoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Icon(
-                    Icons.sports_cricket,
-                    color: ColorsManager.primaryColor,
-                    size: SizeConfig.screenHeight! * 0.2,
+                  child: SizedBox(
+                    height: SizeConfig.screenHeight! * 0.3,
+                    width: SizeConfig.screenHeight! * 0.3,
+                    child: Image.asset(
+                      'assets/logos/logo.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-                const Txt(
-                  text: "AAGPL LOGIN",
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: ColorsManager.primaryColor,
+                SizedBox(
+                  height: SizeConfig.screenWidth! * 0.01,
                 ),
                 const Txt(
                   text: "Please add details to login.",
