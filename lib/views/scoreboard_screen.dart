@@ -20,8 +20,8 @@ class ScoreboardScreen extends StatelessWidget {
   ScoreboardScreen({Key? key}) : super(key: key);
   static const String routeName = '/ScoreboardScreen';
 
-  // final ScoreController controller = Get.find<ScoreController>();
-  final ScoreController controller = Get.put(ScoreController());
+  final ScoreController controller = Get.find<ScoreController>();
+  // final ScoreController controller = Get.put(ScoreController());
 
   @override
   Widget build(BuildContext context) {
