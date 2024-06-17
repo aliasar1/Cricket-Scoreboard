@@ -552,6 +552,12 @@ class ScoreController extends GetxController {
     incrementBall();
   }
 
+  void removeBall(int index) {
+    if (index >= 0 && index < currentOverBalls.length) {
+      currentOverBalls.removeAt(index);
+    }
+  }
+
   void incrementBall() {
     if (!['NB', 'WB'].contains(currentOverBalls.last)) {
       currentBall.value++;

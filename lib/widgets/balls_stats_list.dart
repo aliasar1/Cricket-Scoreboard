@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -29,8 +30,13 @@ class BallsStatsList extends StatelessWidget {
               String ball = controller.currentOverBalls[displayIndex];
               return ball == ""
                   ? Container()
-                  : BallContainer(
-                      type: ball,
+                  : InkWell(
+                      onTap: () {
+                        controller.removeBall(displayIndex);
+                      },
+                      child: BallContainer(
+                        type: ball,
+                      ),
                     );
             },
           )),

@@ -27,9 +27,9 @@ class ScoreTargetCards extends StatelessWidget {
                 : Alignment.center,
             child: Container(
               margin: EdgeInsets.symmetric(
-                horizontal: SizeConfig.safeBlockVertical! * 10,
+                horizontal: SizeConfig.safeBlockVertical! * 8,
               ),
-              height: SizeConfig.safeBlockVertical! * 25,
+              height: SizeConfig.safeBlockVertical! * 35,
               width: SizeConfig.safeBlockHorizontal! * 25,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -56,7 +56,7 @@ class ScoreTargetCards extends StatelessWidget {
                   Txt(
                     textAlign: TextAlign.center,
                     text: "SCORE",
-                    fontSize: SizeConfig.blockSizeVertical! * 5,
+                    fontSize: SizeConfig.blockSizeVertical! * 6,
                     fontWeight: FontWeight.bold,
                     color: ColorsManager.primaryColor,
                   ),
@@ -66,14 +66,14 @@ class ScoreTargetCards extends StatelessWidget {
                       Txt(
                         textAlign: TextAlign.center,
                         text: " ${controller.scoreboard.value.totalRuns}/ ",
-                        fontSize: SizeConfig.blockSizeVertical! * 6,
+                        fontSize: SizeConfig.blockSizeVertical! * 11,
                         fontWeight: FontWeight.bold,
                         color: ColorsManager.primaryColor,
                       ),
                       Txt(
                         textAlign: TextAlign.center,
                         text: "${controller.scoreboard.value.wickets} ",
-                        fontSize: SizeConfig.blockSizeVertical! * 6,
+                        fontSize: SizeConfig.blockSizeVertical! * 11,
                         fontWeight: FontWeight.bold,
                         color: ColorsManager.primaryColor,
                       ),
@@ -81,9 +81,6 @@ class ScoreTargetCards extends StatelessWidget {
                   ),
                   Container(
                     width: SizeConfig.safeBlockHorizontal! * 20,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.safeBlockVertical! * 10,
-                    ),
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [
@@ -108,14 +105,14 @@ class ScoreTargetCards extends StatelessWidget {
                       children: [
                         Txt(
                           text: "Over: ",
-                          fontSize: SizeConfig.blockSizeVertical! * 5,
+                          fontSize: SizeConfig.blockSizeVertical! * 7,
                           fontWeight: FontWeight.bold,
                           color: ColorsManager.whiteColor,
                         ),
                         Txt(
                           text:
                               "${controller.currentOver.value}.${controller.currentBall.value}",
-                          fontSize: SizeConfig.blockSizeVertical! * 5,
+                          fontSize: SizeConfig.blockSizeVertical! * 7,
                           fontWeight: FontWeight.bold,
                           color: ColorsManager.whiteColor,
                         ),
@@ -129,7 +126,7 @@ class ScoreTargetCards extends StatelessWidget {
           Obx(() =>
               controller.isTargetSet.value || controller.isWinningCardUp.value
                   ? Container(
-                      height: SizeConfig.safeBlockVertical! * 25,
+                      height: SizeConfig.safeBlockVertical! * 35,
                       width: SizeConfig.safeBlockHorizontal! * 25,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
@@ -173,7 +170,7 @@ class ScoreTargetCards extends StatelessWidget {
                               textAlign: TextAlign.center,
                               text:
                                   ' ${controller.scoreboard.value.target.toString()}',
-                              fontSize: SizeConfig.safeBlockVertical! * 7,
+                              fontSize: SizeConfig.safeBlockVertical! * 12,
                               color: ColorsManager.primaryColor,
                               fontWeight: FontWeight.bold,
                             ),

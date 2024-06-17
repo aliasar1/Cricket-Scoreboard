@@ -15,8 +15,8 @@ class TextContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      height: SizeConfig.safeBlockVertical! * 20,
-      width: SizeConfig.safeBlockHorizontal! * 30,
+      height: SizeConfig.safeBlockVertical! * 10,
+      width: SizeConfig.safeBlockHorizontal! * 40,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -40,7 +40,7 @@ class TextContainer extends StatelessWidget {
         child: Txt(
           textAlign: TextAlign.center,
           text: text.toString(),
-          fontSize: SizeConfig.safeBlockVertical! * 8,
+          fontSize: SizeConfig.safeBlockVertical! * 6,
           color: ColorsManager.primaryColor,
           fontWeight: FontWeight.bold,
         ),
