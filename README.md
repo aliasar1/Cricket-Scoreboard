@@ -10,6 +10,13 @@ Cricket Scoreboard is a Flutter web application that allows users to manage cric
 - **Player Statistics**: Maintain detailed statistics for batsmen and bowlers, including runs scored, wickets taken, balls bowled, and more.
 - **User-Friendly Interface**: Intuitive design and easy navigation for seamless user experience.
 
+## Website UI
+![Login](https://github.com/aliasar1/Cricket-Scoreboard/blob/main/screenshots/1.png)
+![Team Management](https://github.com/aliasar1/Cricket-Scoreboard/blob/main/screenshots/2.png)
+![Main Screen](https://github.com/aliasar1/Cricket-Scoreboard/blob/main/screenshots/3.png)
+![After Target Screen](https://github.com/aliasar1/Cricket-Scoreboard/blob/main/screenshots/4.png)
+![Winning Screen](https://github.com/aliasar1/Cricket-Scoreboard/blob/main/screenshots/5.png)
+
 ## Getting Started
 
 ### Prerequisites
@@ -45,6 +52,8 @@ Before you begin, ensure you have the following installed:
    ```
 
    This will open the application in your default web browser.
+
+### Make sure to add players and team data in data folder according to your teams.
 
 ## Usage
 
