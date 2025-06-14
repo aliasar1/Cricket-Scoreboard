@@ -15,13 +15,13 @@ class TextContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      height: SizeConfig.safeBlockVertical! * 10,
+      height: SizeConfig.safeBlockVertical! * 8,
       width: SizeConfig.safeBlockHorizontal! * 40,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Colors.white,
-            Color.fromARGB(255, 214, 213, 213),
+            ColorsManager.primaryColor,
+            ColorsManager.lightPrimaryColor,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -41,7 +41,7 @@ class TextContainer extends StatelessWidget {
           textAlign: TextAlign.center,
           text: text.toString(),
           fontSize: SizeConfig.safeBlockVertical! * 6,
-          color: ColorsManager.primaryColor,
+          color: ColorsManager.blackColor,
           fontWeight: FontWeight.bold,
         ),
       ),

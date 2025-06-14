@@ -1,3 +1,4 @@
+import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:flutter/material.dart';
 import '../../utils/size_config.dart';
 import 'custom_text.dart';
@@ -47,7 +48,7 @@ class CustomListTile extends StatelessWidget {
                   onTap: onTogglerPressed,
                   child: Icon(
                     Icons.arrow_right,
-                    color: Colors.green,
+                    color: ColorsManager.primaryColor,
                     size: SizeConfig.blockSizeVertical! * 4,
                   ),
                 )

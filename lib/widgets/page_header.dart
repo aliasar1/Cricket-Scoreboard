@@ -24,8 +24,8 @@ class PageHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            height: SizeConfig.screenHeight! * 0.13,
-            width: SizeConfig.screenHeight! * 0.13,
+            height: SizeConfig.screenHeight! * 0.12,
+            width: SizeConfig.screenHeight! * 0.12,
             child: Image.asset(
               StringsManager.aagplLogo,
               fit: BoxFit.contain,

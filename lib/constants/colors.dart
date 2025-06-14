@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ColorsManager {
-  static const Color primaryColor = Color(0xFF243064);
-  static const Color lightPrimaryColor = Color.fromARGB(255, 85, 125, 170);
+  static const Color primaryColor = Color(0xFFDDAB62);
+  static const Color lightPrimaryColor = Color.fromARGB(255, 232, 197, 146);
   static const Color secondaryColor = Color(0xFF35b8e6);
   static const Color lightSecondaryColor = Color.fromARGB(255, 248, 218, 178);
   static const Color scaffoldBgColor = Color.fromARGB(255, 245, 242, 242);

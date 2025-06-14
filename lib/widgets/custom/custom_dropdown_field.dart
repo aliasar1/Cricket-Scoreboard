@@ -33,7 +33,7 @@ class CustomDropdownFormField<T> extends StatelessWidget {
         contentPadding: const EdgeInsets.all(0.0),
         labelText: labelText,
         labelStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
+          color: ColorsManager.blackColor,
           fontSize: FontSize.textFontSize,
           fontWeight: FontWeight.w400,
         ),
@@ -66,12 +66,12 @@ class CustomDropdownFormField<T> extends StatelessWidget {
       autofocus: autofocus,
       style: const TextStyle(
         fontFamily: 'Poppins',
-        color: ColorsManager.primaryColor,
+        color: ColorsManager.blackColor,
         fontSize: FontSize.textFontSize + 2,
       ),
       icon: const Icon(
         Icons.arrow_drop_down,
-        color: ColorsManager.primaryColor,
+        color: ColorsManager.blackColor,
       ),
     );
   }

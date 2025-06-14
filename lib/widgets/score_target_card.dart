@@ -29,8 +29,8 @@ class ScoreTargetCards extends StatelessWidget {
               margin: EdgeInsets.symmetric(
                 horizontal: SizeConfig.safeBlockVertical! * 8,
               ),
-              height: SizeConfig.safeBlockVertical! * 35,
-              width: SizeConfig.safeBlockHorizontal! * 25,
+              height: SizeConfig.safeBlockVertical! * 40,
+              width: SizeConfig.safeBlockHorizontal! * 30,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [
@@ -58,7 +58,7 @@ class ScoreTargetCards extends StatelessWidget {
                     text: "SCORE",
                     fontSize: SizeConfig.blockSizeVertical! * 6,
                     fontWeight: FontWeight.bold,
-                    color: ColorsManager.primaryColor,
+                    color: ColorsManager.blackColor,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,21 +66,21 @@ class ScoreTargetCards extends StatelessWidget {
                       Txt(
                         textAlign: TextAlign.center,
                         text: " ${controller.scoreboard.value.totalRuns}/ ",
-                        fontSize: SizeConfig.blockSizeVertical! * 11,
+                        fontSize: SizeConfig.blockSizeVertical! * 13.8,
                         fontWeight: FontWeight.bold,
-                        color: ColorsManager.primaryColor,
+                        color: ColorsManager.blackColor,
                       ),
                       Txt(
                         textAlign: TextAlign.center,
                         text: "${controller.scoreboard.value.wickets} ",
-                        fontSize: SizeConfig.blockSizeVertical! * 11,
+                        fontSize: SizeConfig.blockSizeVertical! * 13.8,
                         fontWeight: FontWeight.bold,
-                        color: ColorsManager.primaryColor,
+                        color: ColorsManager.blackColor,
                       ),
                     ],
                   ),
                   Container(
-                    width: SizeConfig.safeBlockHorizontal! * 20,
+                    width: SizeConfig.safeBlockHorizontal! * 30,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [
@@ -90,7 +90,9 @@ class ScoreTargetCards extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.3),
@@ -105,16 +107,16 @@ class ScoreTargetCards extends StatelessWidget {
                       children: [
                         Txt(
                           text: "Over: ",
-                          fontSize: SizeConfig.blockSizeVertical! * 7,
+                          fontSize: SizeConfig.blockSizeVertical! * 8,
                           fontWeight: FontWeight.bold,
-                          color: ColorsManager.whiteColor,
+                          color: ColorsManager.blackColor,
                         ),
                         Txt(
                           text:
                               "${controller.currentOver.value}.${controller.currentBall.value}",
-                          fontSize: SizeConfig.blockSizeVertical! * 7,
+                          fontSize: SizeConfig.blockSizeVertical! * 8,
                           fontWeight: FontWeight.bold,
-                          color: ColorsManager.whiteColor,
+                          color: ColorsManager.blackColor,
                         ),
                       ],
                     ),
@@ -126,8 +128,8 @@ class ScoreTargetCards extends StatelessWidget {
           Obx(() =>
               controller.isTargetSet.value || controller.isWinningCardUp.value
                   ? Container(
-                      height: SizeConfig.safeBlockVertical! * 35,
-                      width: SizeConfig.safeBlockHorizontal! * 25,
+                      height: SizeConfig.safeBlockVertical! * 40,
+                      width: SizeConfig.safeBlockHorizontal! * 30,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [
@@ -157,8 +159,8 @@ class ScoreTargetCards extends StatelessWidget {
                             child: Txt(
                               textAlign: TextAlign.center,
                               text: "Target ",
-                              fontSize: SizeConfig.safeBlockVertical! * 7,
-                              color: ColorsManager.primaryColor,
+                              fontSize: SizeConfig.safeBlockVertical! * 9,
+                              color: ColorsManager.blackColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -170,8 +172,8 @@ class ScoreTargetCards extends StatelessWidget {
                               textAlign: TextAlign.center,
                               text:
                                   ' ${controller.scoreboard.value.target.toString()}',
-                              fontSize: SizeConfig.safeBlockVertical! * 12,
-                              color: ColorsManager.primaryColor,
+                              fontSize: SizeConfig.safeBlockVertical! * 17,
+                              color: ColorsManager.blackColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

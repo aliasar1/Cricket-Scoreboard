@@ -39,15 +39,15 @@ class ScoreboardScreen extends StatelessWidget {
             children: [
               const PageHeader(),
               SizedBox(
-                height: SizeConfig.blockSizeVertical! * 4,
+                height: SizeConfig.blockSizeVertical! * 3,
               ),
               PlayingTeamBanner(controller: controller),
               SizedBox(
-                height: SizeConfig.blockSizeVertical! * 4,
+                height: SizeConfig.blockSizeVertical! * 3,
               ),
               ScoreTargetCards(controller: controller),
               SizedBox(
-                height: SizeConfig.blockSizeVertical! * 4,
+                height: SizeConfig.blockSizeVertical! * 1,
               ),
               controller.isCatchPressed.value
                   ? const TextContainer(
@@ -122,19 +122,30 @@ class ScoreboardScreen extends StatelessWidget {
                           () => CurvedParentContainer(
                             isLeft: true,
                             height: SizeConfig.safeBlockVertical! * 10,
-                            width: SizeConfig.safeBlockHorizontal! * 10,
+                            width: SizeConfig.safeBlockHorizontal! * 12,
                             gradientColors: const [
                               Colors.white,
                               Colors.white70
                             ],
-                            child: SizedBox(
-                              width: SizeConfig.safeBlockVertical! * 20,
-                              child: Txt(
-                                textAlign: TextAlign.center,
-                                text: controller.scoreboard.value.battingTeam,
-                                fontSize: SizeConfig.safeBlockVertical! * 3.6,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: SizeConfig.safeBlockVertical! * 18,
+                                  child: Txt(
+                                    textAlign: TextAlign.center,
+                                    text:
+                                        controller.scoreboard.value.battingTeam,
+                                    fontSize:
+                                        SizeConfig.safeBlockVertical! * 3.6,
+                                    fontWeight: FontWeight.bold,
+                                    useOverflow: true,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 12,
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -176,18 +187,25 @@ class ScoreboardScreen extends StatelessWidget {
                         child: CurvedParentContainer(
                           isLeft: false,
                           height: SizeConfig.safeBlockVertical! * 10,
-                          width: SizeConfig.safeBlockHorizontal! * 10,
+                          width: SizeConfig.safeBlockHorizontal! * 12,
                           gradientColors: const [Colors.white70, Colors.white],
-                          child: Center(
-                            child: SizedBox(
-                              width: SizeConfig.safeBlockVertical! * 20,
-                              child: Txt(
-                                textAlign: TextAlign.center,
-                                text: controller.scoreboard.value.bowlingTeam,
-                                fontSize: SizeConfig.safeBlockVertical! * 3.6,
-                                fontWeight: FontWeight.bold,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 24,
                               ),
-                            ),
+                              SizedBox(
+                                width: SizeConfig.safeBlockVertical! * 18,
+                                child: Txt(
+                                  textAlign: TextAlign.center,
+                                  text: controller.scoreboard.value.bowlingTeam,
+                                  fontSize: SizeConfig.safeBlockVertical! * 3.6,
+                                  fontWeight: FontWeight.bold,
+                                  useOverflow: true,
+                                  maxLines: 2,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

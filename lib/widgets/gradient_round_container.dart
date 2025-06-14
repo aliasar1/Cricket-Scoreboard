@@ -21,9 +21,13 @@ class GradientRoundedContainer extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: gradientColors,
-          begin: Alignment.centerRight,
-          end: Alignment.centerLeft,
+          colors: [
+            gradientColors.first.withOpacity(0.0), // Transparent left
+            gradientColors.first.withOpacity(0.6), // Middle fade
+            gradientColors.last, // Solid right
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
         ),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(50),

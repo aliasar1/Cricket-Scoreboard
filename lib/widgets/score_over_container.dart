@@ -21,9 +21,9 @@ class ScoreOverContainer extends StatelessWidget {
     return Expanded(
       child: Container(
         height: SizeConfig.safeBlockVertical! * 9,
-        decoration: const BoxDecoration(
-          color: ColorsManager.primaryColor,
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          color: ColorsManager.blackColor.withOpacity(0.9),
+          borderRadius: const BorderRadius.all(
             Radius.circular(80),
           ),
         ),
@@ -33,49 +33,46 @@ class ScoreOverContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GradientRoundedContainer(
-                  height: SizeConfig.safeBlockVertical! * 4,
-                  width: SizeConfig.safeBlockHorizontal! * 8,
+                  height: SizeConfig.safeBlockVertical! * 4.3,
+                  width: SizeConfig.safeBlockHorizontal! * 10,
                   gradientColors: const [
-                    ColorsManager.redColor,
-                    ColorsManager.primaryColor
+                    ColorsManager.lightPrimaryColor,
+                    ColorsManager.lightPrimaryColor
                   ],
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * 0.5,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: SizeConfig.safeBlockHorizontal! * 3,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.incScoreOnly();
+                        },
+                        child: Txt(
+                          textAlign: TextAlign.end,
+                          text: " ${controller.scoreboard.value.totalRuns}/ ",
+                          fontSize: SizeConfig.blockSizeVertical! * 3,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
-                        InkWell(
-                          onTap: () {
-                            controller.incScoreOnly();
-                          },
-                          child: Txt(
-                            textAlign: TextAlign.end,
-                            text: " ${controller.scoreboard.value.totalRuns}/ ",
-                            fontSize: SizeConfig.blockSizeVertical! * 3,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.incWicketDirectly();
+                        },
+                        child: Txt(
+                          textAlign: TextAlign.end,
+                          text: "${controller.scoreboard.value.wickets} ",
+                          fontSize: SizeConfig.blockSizeVertical! * 3,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
-                        InkWell(
-                          onTap: () {
-                            controller.incWicketDirectly();
-                          },
-                          child: Txt(
-                            textAlign: TextAlign.end,
-                            text: "${controller.scoreboard.value.wickets} ",
-                            fontSize: SizeConfig.blockSizeVertical! * 3,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
-                  width: SizeConfig.safeBlockHorizontal! * 1.5,
+                  width: SizeConfig.safeBlockHorizontal! * 1,
                 ),
                 Row(
                   children: [
@@ -100,6 +97,9 @@ class ScoreOverContainer extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(
+                  width: SizeConfig.safeBlockHorizontal! * 1,
+                ),
               ],
             ),
             Row(
@@ -114,8 +114,14 @@ class ScoreOverContainer extends StatelessWidget {
                     controller.decrementScore();
                   },
                   child: Txt(
-                    text: "${controller.scoreboard.value.battingTeam} ",
-                    fontSize: SizeConfig.blockSizeVertical! * 3.2,
+                    text: controller.scoreboard.value.battingTeam ==
+                            "FUNERAL SERVICE"
+                        ? "FUNERAL "
+                        : "${controller.scoreboard.value.battingTeam} ",
+                    fontSize: controller.scoreboard.value.battingTeam ==
+                            "FUNERAL SERVICE"
+                        ? SizeConfig.blockSizeVertical! * 2.2
+                        : SizeConfig.blockSizeVertical! * 2.8,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -129,8 +135,14 @@ class ScoreOverContainer extends StatelessWidget {
                 InkWell(
                   onTap: () => controller.decWicketDirectly(),
                   child: Txt(
-                    text: "${controller.scoreboard.value.bowlingTeam} ",
-                    fontSize: SizeConfig.blockSizeVertical! * 3.2,
+                    text: controller.scoreboard.value.bowlingTeam ==
+                            "FUNERAL SERVICE"
+                        ? "FUNERAL "
+                        : "${controller.scoreboard.value.bowlingTeam} ",
+                    fontSize: controller.scoreboard.value.bowlingTeam ==
+                            "FUNERAL SERVICE"
+                        ? SizeConfig.blockSizeVertical! * 2.2
+                        : SizeConfig.blockSizeVertical! * 2.8,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),

@@ -63,18 +63,18 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      cursorColor: ColorsManager.primaryColor,
+      cursorColor: ColorsManager.blackColor,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(0.0),
         labelText: labelText,
         hintText: hintText,
         labelStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
+          color: ColorsManager.blackColor,
           fontSize: FontSize.textFontSize,
           fontWeight: FontWeight.w400,
         ),
         hintStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
+          color: ColorsManager.blackColor,
           fontSize: FontSize.textFontSize,
         ),
         prefixIcon: prefixIconData != null
@@ -102,7 +102,7 @@ class CustomTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(RadiusManager.fieldRadius),
         ),
         floatingLabelStyle: const TextStyle(
-          color: ColorsManager.primaryColor,
+          color: ColorsManager.blackColor,
           fontSize: FontSize.textFontSize,
         ),
         focusedBorder: OutlineInputBorder(
@@ -167,7 +167,7 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText ?? false,
       style: const TextStyle(
         fontFamily: 'Poppins',
-        color: ColorsManager.primaryColor,
+        color: ColorsManager.blackColor,
         fontSize: FontSize.textFontSize + 2,
       ),
     );

@@ -48,8 +48,8 @@ class _WinningCardContainerState extends State<WinningCardContainer> {
     return Stack(
       children: [
         Container(
-          height: SizeConfig.safeBlockVertical! * 10,
-          width: SizeConfig.safeBlockHorizontal! * 45,
+          height: SizeConfig.safeBlockVertical! * 9,
+          width: SizeConfig.safeBlockHorizontal! * 50,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [
@@ -76,7 +76,7 @@ class _WinningCardContainerState extends State<WinningCardContainer> {
                 textAlign: TextAlign.center,
                 text: "Congratulations!",
                 fontSize: SizeConfig.safeBlockVertical! * 3,
-                color: ColorsManager.whiteColor,
+                color: ColorsManager.blackColor,
                 fontWeight: FontWeight.bold,
               ),
               Txt(
@@ -84,7 +84,7 @@ class _WinningCardContainerState extends State<WinningCardContainer> {
                 text:
                     "${widget.controller.winningTeam.value} has won the match against ${widget.controller.winningTeam.value == widget.controller.scoreboard.value.battingTeam ? widget.controller.scoreboard.value.bowlingTeam : widget.controller.scoreboard.value.battingTeam}.",
                 fontSize: SizeConfig.safeBlockVertical! * 3,
-                color: ColorsManager.whiteColor,
+                color: ColorsManager.blackColor,
                 fontWeight: FontWeight.bold,
               ),
             ],

@@ -201,7 +201,7 @@ class SetupScoreboardScreen extends StatelessWidget {
                             height: SizeConfig.blockSizeVertical! * 2,
                           ),
                           CustomButton(
-                            color: ColorsManager.primaryColor,
+                            color: ColorsManager.blackColor,
                             hasInfiniteWidth: true,
                             onPressed: () {
                               if (scoreController.boardFormKey.currentState!

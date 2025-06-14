@@ -1,3 +1,4 @@
+import 'package:aagpl_scoreboard/constants/colors.dart';
 import 'package:aagpl_scoreboard/constants/strings.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class PlayingTeamBanner extends StatelessWidget {
           text: "vs ",
           fontSize: SizeConfig.blockSizeVertical! * 6,
           fontWeight: FontWeight.bold,
-          color: const Color.fromARGB(255, 202, 196, 196),
+          color: ColorsManager.primaryColor,
         ),
         Txt(
           text: "${controller.scoreboard.value.bowlingTeam} ",

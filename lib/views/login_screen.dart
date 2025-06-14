@@ -49,7 +49,7 @@ class AdminLoginScreen extends StatelessWidget {
                   text: "Please add details to login.",
                   fontSize: 26,
                   fontWeight: FontWeight.normal,
-                  color: ColorsManager.primaryColor,
+                  color: ColorsManager.blackColor,
                 ),
                 const SizedBox(
                   height: SizeManager.sizeL,
@@ -103,7 +103,7 @@ class AdminLoginScreen extends StatelessWidget {
                       ),
                       Obx(
                         () => CustomButton(
-                          color: ColorsManager.primaryColor,
+                          color: ColorsManager.blackColor,
                           hasInfiniteWidth: true,
                           buttonType: ButtonType.loading,
                           loadingWidget: authController.isLoading.value

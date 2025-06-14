@@ -1,4 +1,5 @@
 import 'package:aagpl_scoreboard/views/setup_board_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,15 @@ class AuthController extends GetxController {
   Rx<bool> isLoading = false.obs;
   Rx<bool> isObscure = true.obs;
   final loginFormKey = GlobalKey<FormState>();
+
+  @override
+  void onInit() {
+    if (kDebugMode) {
+      usernameController.text = "ysb-aagpl";
+      passwordController.text = "aagplYSB@";
+    }
+    super.onInit();
+  }
 
   void toggleVisibility() {
     isObscure.value = !isObscure.value;

@@ -2,7 +2,6 @@ class StringsManager {
   static const String backgroundImage = "assets/images/background.jpg";
   static const String cronysoftLogo = 'assets/logos/cronysoft.png';
   static const String aagplLogo = 'assets/logos/logo.png';
-  static const String aagplLogoWhite = 'assets/logos/aagpl_white.png';
   static const String batIcon = 'assets/images/bat.png';
   static const String ballIcon = 'assets/images/ball.png';
 
